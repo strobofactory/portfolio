@@ -9,16 +9,7 @@
 <meta property="og:description" content="Software, AI and automation products built from idea to release.">
 <meta property="og:type" content="website">
 <style>
-:root{
-  --ink:#101214;
-  --paper:#ffffff;
-  --soft:#f4f7f8;
-  --soft-blue:#edf7f9;
-  --muted:#687178;
-  --line:#dfe4e7;
-  --accent:#08a7c2;
-  --accent-dark:#08788d;
-}
+:root{--ink:#101214;--paper:#ffffff;--soft:#f4f7f8;--soft-blue:#edf7f9;--muted:#687178;--line:#dfe4e7;--accent:#08a7c2;--accent-dark:#08788d}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}
@@ -41,7 +32,7 @@ nav a:hover{border-bottom-color:var(--accent)}
 .heroStat:last-child{border-bottom:0;padding-bottom:0}
 .heroStat strong{display:block;font-size:30px;letter-spacing:-.04em;margin-bottom:4px}
 .heroStat span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.products,.devSection{max-width:1440px;margin:0 auto;padding:82px 42px 110px}
+.products{max-width:1440px;margin:0 auto;padding:82px 42px 110px}
 .sectionHead{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:42px}
 h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:11px 0 0;font-weight:700}
 .filters{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:22px}
@@ -55,7 +46,6 @@ h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:
 .card.hidden{display:none}
 .cardTop{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
 .appIcon{width:156px;height:156px;flex:0 0 156px;border-radius:32px;display:grid;place-items:center;position:relative;overflow:hidden;background:#111;color:white;font-size:40px;font-weight:700;letter-spacing:-.04em;border:1px solid rgba(0,0,0,.08);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.appIcon.smalltype{font-size:29px}
 .appIcon.yamago{background:#f5f7f7;color:#102b2f;padding:18px}
 .appIcon.yamago img{width:100%;height:100%;object-fit:contain}
 .appIcon.kokone{background:#dfeef5;color:#0f2d46;font-family:"Hiragino Mincho ProN",serif;font-size:58px}
@@ -69,7 +59,7 @@ h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:
 .appIcon.numpure{background:#c9552d;color:#fff}
 .appIcon.numpure .board{width:110px;height:110px;position:relative;background:linear-gradient(to right,transparent 32%,rgba(255,255,255,.9) 32%,rgba(255,255,255,.9) 34%,transparent 34%,transparent 66%,rgba(255,255,255,.9) 66%,rgba(255,255,255,.9) 68%,transparent 68%),linear-gradient(to bottom,transparent 32%,rgba(255,255,255,.9) 32%,rgba(255,255,255,.9) 34%,transparent 34%,transparent 66%,rgba(255,255,255,.9) 66%,rgba(255,255,255,.9) 68%,transparent 68%)}
 .appIcon.numpure .board b{position:absolute;font-size:31px;font-weight:400}.appIcon.numpure .n9{left:8px;top:-4px}.appIcon.numpure .n5{left:48px;top:36px}.appIcon.numpure .n1{right:8px;bottom:-5px}
-.appIcon.pdf{background:#1463f3}.appIcon.color{background:#f3eee3;color:#155f62;font-size:62px}.appIcon.zen{background:#101126;color:#dec16a;font-size:78px}.appIcon.kanji{background:#ff5b62;color:#fff;font-size:63px}.appIcon.extnum{background:#31318e;color:#fff;font-size:46px}
+.appIcon.pdf{background:#1463f3}.appIcon.color{background:#f3eee3;color:#155f62;font-size:62px}.appIcon.zen{background:#101126;color:#dec16a;font-size:78px}.appIcon.kanji{background:#ff5b62;color:#fff;font-size:63px}
 .status{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
 .status i{width:7px;height:7px;background:var(--accent);border-radius:50%}
 .cardBody{padding-top:2px;display:flex;flex-direction:column}
@@ -80,34 +70,14 @@ h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:
 .stack span{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#778086}
 .cardFoot{position:absolute;right:20px;top:20px;font-size:15px;color:#a1a8ac}
 .card:hover .cardFoot{color:var(--accent)}
-.architecture{background:#0e1011;color:#fff;padding:110px max(42px,calc((100vw - 1356px)/2));display:grid;grid-template-columns:.72fr 1.28fr;gap:80px}
-.architecture .kicker{color:#58c7d8}
-.architecture h2{max-width:480px}
-.architecture .lead{color:#adb4b8}
-.principles{border-top:1px solid #3a3e41}
-.principles div{display:grid;grid-template-columns:70px 210px 1fr;gap:20px;padding:25px 0;border-bottom:1px solid #3a3e41;align-items:start}
-.principles span{font-size:10px;color:#58c7d8;letter-spacing:.1em}.principles h3{margin:0;font-size:16px}.principles p{margin:0;font-size:12px;line-height:1.8;color:#aab1b5}
-.devSection{padding-top:96px}
-.sectionHead.compact{align-items:flex-start;margin-bottom:28px}
-.devList{border-top:1px solid var(--ink)}
-.devRow{display:grid;grid-template-columns:1.1fr 180px 1.6fr;gap:30px;padding:24px 0;border-bottom:1px solid var(--line);align-items:center}
-.devRow strong{font-size:18px}.devRow span,.devRow p{font-size:11px;color:var(--muted);margin:0}.devRow span{text-transform:uppercase;letter-spacing:.08em}
-footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr auto;gap:28px;align-items:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
-.footerLinks{display:flex;gap:24px}.footerLinks a:hover{color:var(--accent)}
-@media(max-width:980px){
-  .topbar{padding:0 24px}.hero{padding:84px 24px 72px;grid-template-columns:1fr}.heroSide{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.heroStat{border-bottom:0;padding-bottom:0}
-  .products,.devSection{padding-left:24px;padding-right:24px}.sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}.grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}.architecture{grid-template-columns:1fr;padding:82px 24px;gap:52px}
-  footer{padding-left:24px;padding-right:24px;grid-template-columns:1fr}
-}
-@media(max-width:640px){
-  .topbar{height:68px;padding:0 18px}.brand{font-size:10px}nav{display:none}.hero{padding:66px 18px 58px}.hero h1{font-size:67px}.heroSide{grid-template-columns:1fr 1fr;gap:18px}.heroStat strong{font-size:24px}.products,.devSection{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}.card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}.appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.appIcon.edo:before{width:84px;height:84px}.appIcon.edo:after{width:70px;height:70px}.appIcon.edo span{font-size:44px}.appIcon.kokone{font-size:45px}.appIcon.star{font-size:61px}.appIcon.numpure .board{width:82px;height:82px}.appIcon.numpure .board b{font-size:23px}.appIcon.numpure .n5{left:36px;top:27px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}.architecture{padding:70px 18px}.principles div{grid-template-columns:42px 1fr;gap:14px}.principles p{grid-column:2}.devRow{grid-template-columns:1fr 100px;gap:12px}.devRow p{grid-column:1/-1}footer{padding:32px 18px 44px}
-}
+@media(max-width:980px){.topbar{padding:0 24px}.hero{padding:84px 24px 72px;grid-template-columns:1fr}.heroSide{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.heroStat{border-bottom:0;padding-bottom:0}.products{padding-left:24px;padding-right:24px}.sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}.grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}}
+@media(max-width:640px){.topbar{height:68px;padding:0 18px}.brand{font-size:10px}nav{display:none}.hero{padding:66px 18px 58px}.hero h1{font-size:67px}.heroSide{grid-template-columns:1fr 1fr;gap:18px}.heroStat strong{font-size:24px}.products{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}.card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}.appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.appIcon.edo:before{width:84px;height:84px}.appIcon.edo:after{width:70px;height:70px}.appIcon.edo span{font-size:44px}.appIcon.kokone{font-size:45px}.appIcon.star{font-size:61px}.appIcon.numpure .board{width:82px;height:82px}.appIcon.numpure .board b{font-size:23px}.appIcon.numpure .n5{left:36px;top:27px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}}
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="#top">STROBOFACTORY <span>PRODUCTS</span></a>
-  <nav><a href="#products">Products</a><a href="#approach">Approach</a><a href="https://strobofactory.net/" target="_blank" rel="noreferrer">Strobofactory ↗</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
+  <nav><a href="#products">Products</a><a href="https://strobofactory.net/" target="_blank" rel="noreferrer">Strobofactory ↗</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub ↗</a></nav>
 </header>
 <main>
 <section class="hero" id="top">
@@ -130,13 +100,7 @@ footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--in
     <article class="card" data-category="Extension"><div class="cardTop"><div class="appIcon kanji">漢</div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>漢字よみかたクイズ</h3><p class="desc">ブラウザ上で手軽に学習できる漢字読みクイズ。</p><div class="stack"><span>Manifest V3</span><span>JavaScript</span></div></div><span class="cardFoot">↗</span></article>
   </div>
 </section>
-<section class="architecture" id="approach">
-  <div><div class="kicker">ENGINEERING APPROACH</div><h2>Build for actual use.</h2><p class="lead">デモで終わらせず、配信・更新・運用まで含めて成立させることを開発の前提にしています。</p></div>
-  <div class="principles"><div><span>01</span><h3>Prototype first</h3><p>実装前にUI/UXを検証し、製品として成立する形を先に固めます。</p></div><div><span>02</span><h3>Managed architecture</h3><p>AppleのマネージドサービスやVercelなどを活用し、小さな運用負荷で安定する構成を選択します。</p></div><div><span>03</span><h3>Release pipeline</h3><p>App Store、Chrome Web Store、Shopify直販まで、配信経路を含めて設計します。</p></div><div><span>04</span><h3>Operate & improve</h3><p>公開後の改善、ライセンス運用、アップデートまで継続して扱います。</p></div></div>
-</section>
-<section class="devSection"><div class="sectionHead compact"><div><div class="kicker">IN DEVELOPMENT</div><h2>Next products</h2></div></div><div class="devList"><div class="devRow"><strong>STROBO SELECT</strong><span>macOS</span><p>写真セレクトアプリ。プロトタイプ検証済み。</p></div><div class="devRow"><strong>StroboShot</strong><span>macOS</span><p>画面キャプチャユーティリティ。仕様策定済み。</p></div><div class="devRow"><strong>NEXT ACADEMY AI Support</strong><span>AI / Education</span><p>教育向けAIサポート層。アーキテクチャ設計済み。</p></div></div></section>
 </main>
-<footer><div>© 2026 STROBOFACTORY Inc.</div><div class="footerLinks"><a href="https://strobofactory.net/" target="_blank" rel="noreferrer">Company</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub</a></div><div>products.strobofactory.net</div></footer>
 <script>
 const buttons=document.querySelectorAll('.filters button');
 const cards=document.querySelectorAll('.card');
