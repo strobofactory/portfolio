@@ -70,8 +70,10 @@ h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:
 .stack span{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#778086}
 .cardFoot{position:absolute;right:20px;top:20px;font-size:15px;color:#a1a8ac}
 .card:hover .cardFoot{color:var(--accent)}
-@media(max-width:980px){.topbar{padding:0 24px}.hero{padding:84px 24px 72px;grid-template-columns:1fr}.heroSide{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.heroStat{border-bottom:0;padding-bottom:0}.products{padding-left:24px;padding-right:24px}.sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}.grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}}
-@media(max-width:640px){.topbar{height:68px;padding:0 18px}.brand{font-size:10px}nav{display:none}.hero{padding:66px 18px 58px}.hero h1{font-size:67px}.heroSide{grid-template-columns:1fr 1fr;gap:18px}.heroStat strong{font-size:24px}.products{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}.card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}.appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.appIcon.edo:before{width:84px;height:84px}.appIcon.edo:after{width:70px;height:70px}.appIcon.edo span{font-size:44px}.appIcon.kokone{font-size:45px}.appIcon.star{font-size:61px}.appIcon.numpure .board{width:82px;height:82px}.appIcon.numpure .board b{font-size:23px}.appIcon.numpure .n5{left:36px;top:27px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}}
+footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr auto;gap:28px;align-items:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.footerLinks{display:flex;gap:24px}.footerLinks a:hover{color:var(--accent)}
+@media(max-width:980px){.topbar{padding:0 24px}.hero{padding:84px 24px 72px;grid-template-columns:1fr}.heroSide{grid-template-columns:repeat(3,1fr);border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.heroStat{border-bottom:0;padding-bottom:0}.products{padding-left:24px;padding-right:24px}.sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}.grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}footer{padding-left:24px;padding-right:24px;grid-template-columns:1fr}}
+@media(max-width:640px){.topbar{height:68px;padding:0 18px}.brand{font-size:10px}nav{display:none}.hero{padding:66px 18px 58px}.hero h1{font-size:67px}.heroSide{grid-template-columns:1fr 1fr;gap:18px}.heroStat strong{font-size:24px}.products{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}.card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}.appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.appIcon.edo:before{width:84px;height:84px}.appIcon.edo:after{width:70px;height:70px}.appIcon.edo span{font-size:44px}.appIcon.kokone{font-size:45px}.appIcon.star{font-size:61px}.appIcon.numpure .board{width:82px;height:82px}.appIcon.numpure .board b{font-size:23px}.appIcon.numpure .n5{left:36px;top:27px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}footer{padding:32px 18px 44px}}
 </style>
 </head>
 <body>
@@ -101,6 +103,7 @@ h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:
   </div>
 </section>
 </main>
+<footer><div>© 2026 STROBOFACTORY Inc.</div><div class="footerLinks"><a href="https://strobofactory.net/" target="_blank" rel="noreferrer">Company</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub</a></div><div>products.strobofactory.net</div></footer>
 <script>
 const buttons=document.querySelectorAll('.filters button');
 const cards=document.querySelectorAll('.card');
