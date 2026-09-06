@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STROBOFACTORY ENGINEERING</title>
+<meta name="description" content="Apps, AI, automation and software products designed and built by STROBOFACTORY.">
+<meta property="og:title" content="STROBOFACTORY ENGINEERING">
+<meta property="og:description" content="Software, AI and automation products built from idea to release.">
+<meta property="og:type" content="website">
+<style>:root {
+  --bg: #07090d;
+  --panel: #0d1117;
+  --panel-2: #121821;
+  --text: #f4f6f8;
+  --muted: #929ba8;
+  --line: rgba(255,255,255,.11);
+  --soft: rgba(255,255,255,.055);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+main { overflow: hidden; }
+.topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 28px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: .08em; }
+.brand b { color: #7d8794; font-weight: 600; }
+.brandMark { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.25); display: grid; place-items: center; border-radius: 9px; font-size: 11px; font-weight: 800; letter-spacing: -.03em; background: linear-gradient(145deg, #1c2430, #090b0f); }
+.brandMark.small { width: 28px; height: 28px; border-radius: 7px; }
+nav { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
+nav a:hover, .footerLinks a:hover { color: #fff; }
+.hero { max-width: 1280px; margin: 0 auto; padding: 112px 28px 96px; position: relative; }
+.hero::after { content: ""; position: absolute; right: -220px; top: -130px; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(circle, rgba(88,113,255,.14) 0, rgba(19,25,44,.06) 35%, transparent 70%); pointer-events: none; }
+.eyebrow, .kicker { font-size: 11px; letter-spacing: .18em; color: #778294; font-weight: 700; }
+.hero h1 { margin: 22px 0 24px; max-width: 900px; font-size: clamp(58px, 9vw, 118px); line-height: .92; letter-spacing: -.065em; font-weight: 620; }
+.hero h1 span { color: #697383; }
+.lead { max-width: 720px; color: #a6afba; line-height: 1.85; font-size: 16px; }
+.heroMeta { margin-top: 64px; display: flex; gap: 12px; flex-wrap: wrap; }
+.heroMeta div { min-width: 180px; padding: 17px 20px; border: 1px solid var(--line); background: rgba(255,255,255,.025); border-radius: 14px; display: flex; flex-direction: column; gap: 4px; }
+.heroMeta strong { font-size: 18px; }
+.heroMeta span { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.products, .devSection { max-width: 1280px; margin: 0 auto; padding: 76px 28px 110px; }
+.sectionHead { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 34px; }
+.sectionHead.compact { margin-bottom: 24px; }
+h2 { font-size: clamp(34px, 5vw, 58px); letter-spacing: -.045em; margin: 10px 0 0; font-weight: 580; }
+.filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.filters button { border: 1px solid var(--line); background: transparent; color: #8e97a4; border-radius: 999px; padding: 9px 14px; cursor: pointer; font-size: 12px; }
+.filters button.active, .filters button:hover { background: #f4f6f8; color: #090b0f; border-color: #f4f6f8; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.card { min-height: 410px; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); display: flex; flex-direction: column; overflow: hidden; transition: transform .22s ease, border-color .22s ease, background .22s ease; }
+.card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.22); background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.025)); }
+.card.featured { background: linear-gradient(160deg, rgba(92,109,255,.09), rgba(255,255,255,.022)); }
+.cardTop { display: flex; align-items: start; justify-content: space-between; padding: 24px; }
+.appIcon { width: 72px; height: 72px; border-radius: 19px; display: grid; place-items: center; font-size: 22px; font-weight: 800; background: linear-gradient(145deg, #242d3a, #0b0e13); border: 1px solid rgba(255,255,255,.15); box-shadow: 0 14px 38px rgba(0,0,0,.3); }
+.status { font-size: 10px; color: #8f98a5; border: 1px solid var(--line); padding: 7px 9px; border-radius: 999px; display: flex; gap: 6px; align-items: center; }
+.status i { width: 6px; height: 6px; border-radius: 50%; background: #65d18b; }
+.cardBody { padding: 7px 24px 24px; flex: 1; }
+.category { color: #778294; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+.card h3 { font-size: 25px; letter-spacing: -.025em; margin: 9px 0 12px; }
+.desc { color: #a1aab6; line-height: 1.72; font-size: 13px; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 19px; }
+.stack span { color: #7f8996; font-size: 10px; padding: 6px 8px; background: var(--soft); border-radius: 6px; }
+.cardFoot { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding: 14px 24px; color: #68727f; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.architecture { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 100px max(28px, calc((100vw - 1224px)/2)); display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; background: #090c11; }
+.principles { display: grid; grid-template-columns: 1fr 1fr; border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
+.principles div { padding: 28px; min-height: 210px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.principles span { font-size: 10px; color: #68727f; }
+.principles h3 { margin: 34px 0 10px; font-size: 19px; }
+.principles p { margin: 0; color: #8d97a4; font-size: 12px; line-height: 1.7; }
+.devList { border-top: 1px solid var(--line); }
+.devRow { display: grid; grid-template-columns: 1fr 140px 1.4fr; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.devRow strong { font-size: 16px; }
+.devRow span, .devRow p { color: #798390; font-size: 12px; }
+.devRow p { margin: 0; }
+footer { max-width: 1280px; margin: 0 auto; padding: 40px 28px 60px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr auto; gap: 24px; align-items: center; color: #737d8a; font-size: 11px; }
+footer > div:first-child { display: flex; align-items: center; gap: 10px; color: #c4cad1; }
+.footerLinks { display: flex; gap: 20px; }
+@media (max-width: 900px) {
+  nav { display: none; }
+  .hero { padding-top: 82px; }
+  .sectionHead { align-items: start; flex-direction: column; }
+  .filters { justify-content: flex-start; }
+  .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .architecture { grid-template-columns: 1fr; gap: 45px; }
+  .devRow { grid-template-columns: 1fr 100px; }
+  .devRow p { grid-column: 1 / -1; }
+  footer { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .topbar, .hero, .products, .devSection { padding-left: 18px; padding-right: 18px; }
+  .topbar { height: 64px; }
+  .brand { font-size: 10px; }
+  .hero { padding-top: 72px; padding-bottom: 70px; }
+  .hero h1 { font-size: 56px; }
+  .heroMeta div { flex: 1; min-width: 140px; }
+  .products, .devSection { padding-top: 58px; padding-bottom: 78px; }
+  .grid { grid-template-columns: 1fr; }
+  .card { min-height: 360px; }
+  .architecture { padding: 72px 18px; }
+  .principles { grid-template-columns: 1fr; }
+  footer { padding-left: 18px; padding-right: 18px; }
+}
+.card.hidden{display:none} .filters button{-webkit-tap-highlight-color:transparent}
+</style>
+</head>
+<body>
+<main>
+<header class="topbar"><a class="brand" href="#top" aria-label="STROBOFACTORY ENGINEERING home"><span class="brandMark">SF</span><span>STROBOFACTORY <b>ENGINEERING</b></span></a><nav><a href="#products">Products</a><a href="#approach">Approach</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub ↗</a></nav></header>
+<section class="hero" id="top"><div class="eyebrow">SOFTWARE / AI / AUTOMATION</div><h1>Ideas into<br><span>working products.</span></h1><p class="lead">企画から設計、実装、リリース、運用まで。STROBOFACTORYが実際に公開・運用しているソフトウェアプロダクトをまとめています。</p><div class="heroMeta"><div><strong>11</strong><span>Products shown</span></div><div><strong>4+</strong><span>Platforms</span></div><div><strong>End-to-end</strong><span>Build & release</span></div></div></section>
+<section class="products" id="products"><div class="sectionHead"><div><p class="kicker">PRODUCT INDEX</p><h2>Released products</h2></div><div class="filters" aria-label="Project filters"><button class="active" data-filter="All">All</button><button data-filter="iOS">iOS</button><button data-filter="macOS">macOS</button><button data-filter="Extension">Extension</button><button data-filter="AI">AI</button><button data-filter="Game">Game</button></div></div><div class="grid"><article class="card featured" data-category="iOS"><div class="cardTop"><div class="appIcon">YA</div><span class="status"><i></i>App Store</span></div><div class="cardBody"><p class="category">iOS + Apple Watch</p><h3>yamago</h3><p class="desc">登山中の生体データと位置情報を記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。</p><div class="stack"><span>SwiftUI</span><span>HealthKit</span><span>CloudKit</span><span>WeatherKit</span><span>MapKit</span><span>watchOS</span></div></div><div class="cardFoot"><span>HAPIVERI</span><span>↗</span></div></article><article class="card featured" data-category="AI"><div class="cardTop"><div class="appIcon">KO</div><span class="status"><i></i>Released</span></div><div class="cardBody"><p class="category">iOS</p><h3>ここね / Kokone</h3><p class="desc">日々の記録をAIで分析し、感情の推移を可視化するジャーナリングアプリ。</p><div class="stack"><span>SwiftUI</span><span>Claude API</span><span>Vercel</span><span>Upstash KV</span></div></div><div class="cardFoot"><span>HAPIVERI Healthcare.ai</span><span>↗</span></div></article><article class="card " data-category="macOS"><div class="cardTop"><div class="appIcon">SW</div><span class="status"><i></i>Released</span></div><div class="cardBody"><p class="category">macOS</p><h3>Sweepline for Mac</h3><p class="desc">macOS向けユーティリティ。Shopify直販と署名付き自動アップデートを組み合わせて運用。</p><div class="stack"><span>Swift</span><span>Sparkle</span><span>Shopify</span><span>EdDSA</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="macOS"><div class="cardTop"><div class="appIcon">PK</div><span class="status"><i></i>Released</span></div><div class="cardBody"><p class="category">macOS</p><h3>PKPassport for Mac</h3><p class="desc">自社販売基盤とライセンス運用を組み合わせたmacOSユーティリティ。</p><div class="stack"><span>Swift</span><span>Sparkle</span><span>Vercel</span><span>Upstash KV</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="iOS"><div class="cardTop"><div class="appIcon">刻</div><span class="status"><i></i>App Store</span></div><div class="cardBody"><p class="category">iOS</p><h3>江戸の刻</h3><p class="desc">江戸時代の不定時法を現代の端末上で再現する時間体験アプリ。</p><div class="stack"><span>SwiftUI</span><span>iOS</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="iOS"><div class="cardTop"><div class="appIcon">★</div><span class="status"><i></i>App Store</span></div><div class="cardBody"><p class="category">iOS</p><h3>おてつだいスター！</h3><p class="desc">子どものお手伝いを楽しく記録するファミリー向けiOSアプリ。</p><div class="stack"><span>SwiftUI</span><span>iOS</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="Game"><div class="cardTop"><div class="appIcon">9</div><span class="status"><i></i>Released</span></div><div class="cardBody"><p class="category">iOS + Chrome</p><h3>シンプル ナンプレ</h3><p class="desc">iOSとChrome拡張の双方で展開するシンプルなナンプレパズル。</p><div class="stack"><span>iOS</span><span>Chrome Extension</span><span>Manifest V3</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card featured" data-category="Extension"><div class="cardTop"><div class="appIcon">PDF</div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>PDF Markly</h3><p class="desc">ブラウザ上でPDFへの書き込み・チェック・署名を行うChrome拡張。</p><div class="stack"><span>JavaScript</span><span>Manifest V3</span><span>CSP</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="Extension"><div class="cardTop"><div class="appIcon">SC</div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>STROBOCOLOR</h3><p class="desc">制作ワークフロー向けに開発したChrome拡張ユーティリティ。</p><div class="stack"><span>JavaScript</span><span>Manifest V3</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="Extension"><div class="cardTop"><div class="appIcon">○</div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>Zen Breath</h3><p class="desc">ブラウザ上で使える呼吸・瞑想タイマー。</p><div class="stack"><span>JavaScript</span><span>Manifest V3</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article><article class="card " data-category="Extension"><div class="cardTop"><div class="appIcon">漢</div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>漢字よみかたクイズ</h3><p class="desc">学習用途の漢字読み方クイズを提供するChrome拡張。</p><div class="stack"><span>JavaScript</span><span>Manifest V3</span></div></div><div class="cardFoot"><span>STROBOFACTORY</span><span>↗</span></div></article></div></section>
+<section class="architecture" id="approach"><div><p class="kicker">ENGINEERING APPROACH</p><h2>Build for release,<br>not for demos.</h2></div><div class="principles"><div><span>01</span><h3>Prototype first</h3><p>UI/UXは先にプロトタイプで検証し、ネイティブ実装へ進みます。</p></div><div><span>02</span><h3>Managed architecture</h3><p>CloudKit、HealthKit、Vercelなどマネージド基盤を優先し、運用負荷を抑えます。</p></div><div><span>03</span><h3>Single source of truth</h3><p>canonical sourceを定め、派生物は自動生成する構成を基本にしています。</p></div><div><span>04</span><h3>Release pipeline</h3><p>署名、ライセンス、更新配信、ストア公開までを開発工程として扱います。</p></div></div></section>
+<section class="devSection"><div class="sectionHead compact"><div><p class="kicker">LAB</p><h2>In development</h2></div></div><div class="devList"><div class="devRow"><strong>STROBO SELECT</strong><span>macOS</span><p>写真セレクトアプリ / prototype validated</p></div><div class="devRow"><strong>StroboShot</strong><span>macOS</span><p>画面キャプチャ / specification complete</p></div><div class="devRow"><strong>NEXT ACADEMY AI Support</strong><span>AI</span><p>教育向けAIエージェント / architecture designed</p></div></div></section>
+<footer><div><span class="brandMark small">SF</span><b>STROBOFACTORY ENGINEERING</b></div><p>株式会社ストロボファクトリー — Software, AI & Creative Technology</p><div class="footerLinks"><a href="https://www.strobofactory.net" target="_blank" rel="noreferrer">Company ↗</a><a href="https://github.com/strobofactory/portfolio" target="_blank" rel="noreferrer">GitHub ↗</a></div></footer>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('.filters button')];
+const cards=[...document.querySelectorAll('.card')];
+buttons.forEach(button=>button.addEventListener('click',()=>{
+  const filter=button.dataset.filter;
+  buttons.forEach(b=>b.classList.toggle('active',b===button));
+  cards.forEach(card=>card.classList.toggle('hidden',filter!=='All'&&card.dataset.category!==filter));
+}));
+</script>
+</body></html>
