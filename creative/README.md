@@ -26,8 +26,14 @@ VIMEO_ACCESS_TOKEN=<personal access token>
 Recommended Vimeo token configuration:
 
 - Authenticated (you)
-- Read-only scopes needed for video metadata
-- Add Private scope only if Vimeo requires it to read metadata for account videos that are not fully public
+- Read access only; do not grant upload/edit/delete capabilities
+- Use Public plus Private metadata scope if needed for `/me/videos` and privacy metadata
+
+By default the site returns only videos whose Vimeo privacy is `anybody`. Unlisted videos remain hidden. If a deliberate unlisted portfolio is needed later, set:
+
+```text
+VIMEO_INCLUDE_UNLISTED=true
+```
 
 The API response is cached for 15 minutes at the Vercel edge, with stale content allowed during revalidation.
 
