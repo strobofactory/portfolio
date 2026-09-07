@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/assets/hero-tech-duo.webp",
+      "destination": "/api/hero"
+    }
+  ]
+}
