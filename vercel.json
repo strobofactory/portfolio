@@ -13,10 +13,6 @@
       "dest": "/api/case-image?name=hapi"
     },
     {
-      "src": "/assets/hapiveri-healthcare-member\\.webp",
-      "dest": "/api/healthcare-image"
-    },
-    {
       "handle": "filesystem"
     }
   ]
