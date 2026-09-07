@@ -1,8 +1,11 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/assets/hero-tech-duo.webp",
-      "destination": "/api/hero"
+      "src": "/assets/hero-tech-duo\\.webp",
+      "dest": "/api/hero"
+    },
+    {
+      "handle": "filesystem"
     }
   ]
 }
