@@ -1,0 +1,48 @@
+name: Fix healthcare screenshot
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-healthcare-image.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install-exact-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Download exact uploaded WebP
+        run: |
+          set -euo pipefail
+          curl --fail --location 'https://pikaso.cdnpk.net/private/production/5373020736/3553702272.webp?token=exp=1788998400~hmac=0dda0ba7bfbe1a282916d804f4a7e6b3cb303bfcf7d91e8c97f00c1ee9fe5298' \
+            --output assets/hapiveri-healthcare-member.webp
+          echo 'e5b0c88f2e2c7f22ed5ecf32e735b97f7df963fde96d2d069f4867e653531d99  assets/hapiveri-healthcare-member.webp' | sha256sum -c -
+
+      - name: Serve image directly as a static asset
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('vercel.json')
+          data = json.loads(p.read_text())
+          data['routes'] = [r for r in data.get('routes', []) if 'hapiveri-healthcare-member' not in r.get('src', '')]
+          p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+          PY
+
+      - name: Commit exact image
+        run: |
+          set -euo pipefail
+          git config user.name 'strobofactory'
+          git config user.email 'info@strobofactory.net'
+          git add assets/hapiveri-healthcare-member.webp vercel.json
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Use exact uploaded Healthcare screenshot'
+          git push origin HEAD:main
