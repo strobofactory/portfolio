@@ -10,14 +10,69 @@
 <meta property="og:type" content="website">
 <style>
 :root{--ink:#101214;--paper:#fff;--soft:#edf7f9;--muted:#687178;--line:#dfe4e7;--accent:#08a7c2;--accent-dark:#08788d}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}body:before{content:"";display:block;height:4px;background:var(--accent)}a{color:inherit;text-decoration:none}button{font:inherit}
-.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;max-width:1440px;margin:0 auto;padding:0 42px;border-bottom:1px solid var(--line);background:#fff}.brand{font-size:14px;font-weight:700;letter-spacing:.14em;white-space:nowrap}.brand span{color:var(--accent);font-weight:600}nav{display:flex;gap:34px;align-items:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase}nav a{padding:31px 0 28px;border-bottom:2px solid transparent}nav a:hover{border-bottom-color:var(--accent)}
-.hero{max-width:1440px;margin:0 auto;padding:70px 42px 0;display:grid;grid-template-columns:.92fr 1.08fr;gap:20px;align-items:end;border-bottom:1px solid var(--line);overflow:hidden;background:#fff}.heroCopy{position:relative;z-index:2;padding:34px 0 72px}.eyebrow,.kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-dark);font-weight:700}.hero h1{font-size:clamp(72px,10vw,154px);line-height:.8;letter-spacing:-.075em;margin:27px 0 35px;font-weight:700;text-transform:uppercase}.hero h1 em{font-style:normal;color:var(--accent)}.lead{font-size:16px;line-height:1.9;max-width:660px;margin:0;color:#3f474d}.heroMeta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;padding-top:23px;border-top:1px solid var(--line);max-width:650px}.heroStat strong{display:block;font-size:22px;letter-spacing:-.035em;margin-bottom:4px}.heroStat span{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.heroVisual{position:relative;align-self:end;display:flex;align-items:flex-end;justify-content:center;min-height:555px;margin:0 -15px -1px 0;pointer-events:none}.heroVisual:after{content:"";position:absolute;left:8%;right:8%;bottom:0;height:90px;background:linear-gradient(to top,#fff 0%,rgba(255,255,255,.82) 34%,rgba(255,255,255,0) 100%);z-index:1;pointer-events:none}.heroVisual img{position:relative;z-index:0;display:block;width:min(100%,760px);height:auto;object-fit:contain;opacity:0;transition:opacity .28s ease}.heroVisual img.loaded{opacity:1}
-.products{max-width:1440px;margin:0 auto;padding:82px 42px 110px}.sectionHead{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:42px}h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:11px 0 0;font-weight:700}.filters{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:22px}.filters button{border:0;border-bottom:1px solid transparent;background:transparent;padding:6px 0;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}.filters button.active,.filters button:hover{color:var(--ink);border-bottom-color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--ink)}.card{display:grid;grid-template-columns:180px 1fr;gap:30px;min-height:320px;padding:38px 34px 38px 0;border-bottom:1px solid var(--line);position:relative;transition:background .2s ease;cursor:pointer}.card:nth-child(odd){border-right:1px solid var(--line);padding-right:38px}.card:nth-child(even){padding-left:38px}.card:hover{background:var(--soft)}.card.hidden{display:none}.cardTop{display:flex;flex-direction:column;align-items:flex-start;gap:18px}.appIcon{width:156px;height:156px;flex:0 0 156px;border-radius:32px;display:block;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 8px 24px rgba(0,0,0,.08)}.appIcon img{display:block;width:100%;height:100%;object-fit:contain;background:transparent}.icon-loading{background:#f4f7f8}.status{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}.status i{width:7px;height:7px;background:var(--accent);border-radius:50%}.cardBody{padding-top:2px;display:flex;flex-direction:column}.category{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin:0 0 10px;font-weight:700}.card h3{font-size:28px;letter-spacing:-.035em;margin:0 0 14px;line-height:1.1}.desc{font-size:13px;line-height:1.8;color:#525c62;margin:0;max-width:440px}.stack{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:auto;padding-top:22px}.stack span{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#778086}.cardFoot{position:absolute;right:20px;top:20px;font-size:15px;color:#a1a8ac}.card:hover .cardFoot{color:var(--accent)}
-footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase}.footerLinks{display:flex;gap:24px}.footerLinks a:hover{color:var(--accent)}
-@media(max-width:1080px){.hero{padding:62px 24px 0;grid-template-columns:1fr;gap:0}.heroCopy{padding:20px 0 18px}.hero h1{font-size:clamp(70px,14vw,132px)}.heroMeta{margin-top:28px}.heroVisual{min-height:0;width:min(780px,100%);margin:0 auto}.heroVisual img{width:min(100%,700px)}.heroVisual:after{height:70px}.products{padding-left:24px;padding-right:24px}.sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}.grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}footer{padding-left:24px;padding-right:24px;grid-template-columns:1fr}}
-@media(max-width:640px){.topbar{height:68px;padding:0 18px}.brand{font-size:10px}nav{display:none}.hero{padding:48px 18px 0}.heroCopy{padding-top:8px}.hero h1{font-size:64px}.lead{font-size:14px;line-height:1.8}.heroMeta{gap:18px;margin-top:24px}.heroStat strong{font-size:18px}.heroVisual{margin-top:10px}.heroVisual img{width:115%;max-width:none}.products{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}.card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}.appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}footer{padding:32px 18px 44px}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body:before{content:"";display:block;height:4px;background:var(--accent)}
+a{color:inherit;text-decoration:none}button{font:inherit}
+.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;max-width:1440px;margin:0 auto;padding:0 42px;border-bottom:1px solid var(--line);background:#fff}
+.brand{font-size:14px;font-weight:700;letter-spacing:.14em;white-space:nowrap}.brand span{color:var(--accent);font-weight:600}
+nav{display:flex;gap:34px;align-items:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+nav a{padding:31px 0 28px;border-bottom:2px solid transparent}nav a:hover{border-bottom-color:var(--accent)}
+.hero{position:relative;max-width:1440px;min-height:730px;margin:0 auto;padding:92px 42px 70px;border-bottom:1px solid var(--line);overflow:hidden;background:#fff}
+.heroCopy{position:relative;z-index:2;width:57%;max-width:760px;padding-top:12px}
+.eyebrow,.kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-dark);font-weight:700}
+.hero h1{font-size:clamp(72px,10vw,154px);line-height:.8;letter-spacing:-.075em;margin:27px 0 35px;font-weight:700;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lead{font-size:16px;line-height:1.9;max-width:660px;margin:0;color:#3f474d}
+.heroMeta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;padding-top:23px;border-top:1px solid var(--line);max-width:650px}
+.heroStat strong{display:block;font-size:22px;letter-spacing:-.035em;margin-bottom:4px}
+.heroStat span{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.heroVisual{position:absolute;z-index:1;right:-28px;bottom:-2px;width:min(59%,850px);height:100%;display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:none}
+.heroVisual img{display:block;width:100%;height:auto;object-fit:contain;opacity:0;transition:opacity .2s ease}
+.heroVisual img.loaded{opacity:1}
+.products{max-width:1440px;margin:0 auto;padding:82px 42px 110px}
+.sectionHead{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:42px}
+h2{font-size:clamp(42px,6vw,82px);line-height:.94;letter-spacing:-.055em;margin:11px 0 0;font-weight:700}
+.filters{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:22px}
+.filters button{border:0;border-bottom:1px solid transparent;background:transparent;padding:6px 0;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.filters button.active,.filters button:hover{color:var(--ink);border-bottom-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--ink)}
+.card{display:grid;grid-template-columns:180px 1fr;gap:30px;min-height:320px;padding:38px 34px 38px 0;border-bottom:1px solid var(--line);position:relative;transition:background .2s ease;cursor:pointer}
+.card:nth-child(odd){border-right:1px solid var(--line);padding-right:38px}.card:nth-child(even){padding-left:38px}
+.card:hover{background:var(--soft)}.card.hidden{display:none}
+.cardTop{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.appIcon{width:156px;height:156px;flex:0 0 156px;border-radius:32px;display:block;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.appIcon img{display:block;width:100%;height:100%;object-fit:contain;background:transparent}.icon-loading{background:#f4f7f8}
+.status{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}.status i{width:7px;height:7px;background:var(--accent);border-radius:50%}
+.cardBody{padding-top:2px;display:flex;flex-direction:column}.category{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-dark);margin:0 0 10px;font-weight:700}
+.card h3{font-size:28px;letter-spacing:-.035em;margin:0 0 14px;line-height:1.1}.desc{font-size:13px;line-height:1.8;color:#525c62;margin:0;max-width:440px}
+.stack{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:auto;padding-top:22px}.stack span{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:#778086}
+.cardFoot{position:absolute;right:20px;top:20px;font-size:15px;color:#a1a8ac}.card:hover .cardFoot{color:var(--accent)}
+footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.footerLinks{display:flex;gap:24px}.footerLinks a:hover{color:var(--accent)}
+@media(max-width:1080px){
+ .hero{min-height:690px;padding:72px 24px 54px}
+ .heroCopy{width:60%}
+ .hero h1{font-size:clamp(70px,12vw,126px)}
+ .heroVisual{right:-80px;width:62%}
+ .products{padding-left:24px;padding-right:24px}
+ .sectionHead{align-items:flex-start;flex-direction:column}.filters{justify-content:flex-start}
+ .grid{grid-template-columns:1fr}.card:nth-child(odd){border-right:0;padding-right:0}.card:nth-child(even){padding-left:0}
+ footer{padding-left:24px;padding-right:24px;grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .hero{min-height:auto;padding:52px 18px 0}
+ .heroCopy{width:100%;padding-bottom:10px}
+ .hero h1{font-size:64px}
+ .lead{font-size:14px;line-height:1.8}.heroMeta{gap:18px;margin-top:24px}.heroStat strong{font-size:18px}
+ .heroVisual{position:relative;right:auto;bottom:auto;width:118%;height:auto;margin:4px -9% 0;justify-content:center}
+ .heroVisual img{width:100%}
+ .products{padding:58px 18px 76px}.sectionHead{margin-bottom:26px}.filters{gap:14px}
+ .card{grid-template-columns:124px 1fr;gap:20px;padding:28px 0;min-height:250px}
+ .appIcon{width:116px;height:116px;flex-basis:116px;border-radius:24px}.card h3{font-size:21px}.desc{font-size:12px;line-height:1.65}.stack{display:none}.cardFoot{right:0;top:16px}
+ footer{padding:32px 18px 44px}
+}
 </style>
 </head>
 <body>
@@ -32,7 +87,9 @@ footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--in
   </div>
   <div class="heroVisual"><img id="heroTechDuo" alt="STROBOFACTORY software product development illustration"></div>
 </section>
-<section class="products" id="products"><div class="sectionHead"><div><div class="kicker">PRODUCT INDEX</div><h2>Released products</h2></div><div class="filters" aria-label="Project filters"><button class="active" data-filter="All">All</button><button data-filter="iOS">iOS</button><button data-filter="macOS">macOS</button><button data-filter="Extension">Extension</button><button data-filter="AI">AI</button></div></div><div class="grid">
+<section class="products" id="products">
+<div class="sectionHead"><div><div class="kicker">PRODUCT INDEX</div><h2>Released products</h2></div><div class="filters" aria-label="Project filters"><button class="active" data-filter="All">All</button><button data-filter="iOS">iOS</button><button data-filter="macOS">macOS</button><button data-filter="Extension">Extension</button><button data-filter="AI">AI</button></div></div>
+<div class="grid">
 <a class="card" data-category="iOS" href="https://apps.apple.com/jp/app/id6805208736" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon icon-loading"><img data-icon-api="/api/icon?source=itunes&id=6805208736" alt="yamago app icon"></div><span class="status"><i></i>App Store</span></div><div class="cardBody"><p class="category">iOS + Apple Watch</p><h3>yamago</h3><p class="desc">登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。</p><div class="stack"><span>SwiftUI</span><span>HealthKit</span><span>CloudKit</span><span>WeatherKit</span><span>MapKit</span><span>watchOS</span></div></div><span class="cardFoot">↗</span></a>
 <a class="card" data-category="iOS AI" href="https://apps.apple.com/jp/app/id6800348133" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon icon-loading"><img data-icon-api="/api/icon?source=itunes&id=6800348133" alt="ここね app icon"></div><span class="status"><i></i>App Store</span></div><div class="cardBody"><p class="category">iOS + AI</p><h3>ここね / Kokone</h3><p class="desc">声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。</p><div class="stack"><span>SwiftUI</span><span>Claude API</span><span>Vercel</span><span>Upstash KV</span></div></div><span class="cardFoot">↗</span></a>
 <a class="card" data-category="macOS" href="https://strobofactory.net/products/sweepline-for-mac" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon icon-loading"><img data-icon-api="/api/icon?source=shopify&handle=sweepline-for-mac" alt="Sweepline for Mac app icon"></div><span class="status"><i></i>Released</span></div><div class="cardBody"><p class="category">macOS</p><h3>Sweepline for Mac</h3><p class="desc">Shopify直販、ライセンス発行、署名付き自動アップデートまで含めて構築したmacOSユーティリティ。</p><div class="stack"><span>Swift</span><span>Sparkle</span><span>Shopify</span><span>EdDSA</span></div></div><span class="cardFoot">↗</span></a>
@@ -44,12 +101,16 @@ footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--in
 <a class="card" data-category="Extension" href="https://chromewebstore.google.com/detail/strobocolor/knlcinbmogijghpdlacnnejijgdjedig" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon"><img src="/assets/strobocolor.png" alt="STROBOCOLOR extension icon"></div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>STROBOCOLOR</h3><p class="desc">Web制作・デザイン作業を支援するカラーユーティリティ。</p><div class="stack"><span>Manifest V3</span><span>JavaScript</span></div></div><span class="cardFoot">↗</span></a>
 <a class="card" data-category="Extension" href="https://chromewebstore.google.com/detail/zen-breath-%E2%80%94-%E7%9E%91%E6%83%B3%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC/bcaneejfakiobbhjojkjdkkkdifpfbpb" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon"><img src="/assets/zen-breath.png" alt="Zen Breath extension icon"></div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>Zen Breath</h3><p class="desc">短い呼吸・瞑想セッションをブラウザ上で実行するミニマルなタイマー。</p><div class="stack"><span>Manifest V3</span><span>JavaScript</span></div></div><span class="cardFoot">↗</span></a>
 <a class="card" data-category="Extension" href="https://chromewebstore.google.com/detail/hnideogonplnadlhacakcmdkcelkcoca?utm_source=item-share-cb" target="_blank" rel="noreferrer"><div class="cardTop"><div class="appIcon"><img src="/assets/kanji-yomikata.png" alt="漢字よみかたクイズ extension icon"></div><span class="status"><i></i>Chrome Web Store</span></div><div class="cardBody"><p class="category">Chrome Extension</p><h3>漢字よみかたクイズ</h3><p class="desc">ブラウザ上で手軽に学習できる漢字読みクイズ。</p><div class="stack"><span>Manifest V3</span><span>JavaScript</span></div></div><span class="cardFoot">↗</span></a>
-</div></section></main>
+</div>
+</section>
+</main>
 <footer><div>© 2026 STROBOFACTORY Inc.</div><div class="footerLinks"><a href="https://strobofactory.net/" target="_blank" rel="noreferrer">Company</a></div></footer>
 <script>
-const buttons=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.card');buttons.forEach(btn=>btn.addEventListener('click',()=>{buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const filter=btn.dataset.filter;cards.forEach(card=>{const cats=card.dataset.category.split(' ');card.classList.toggle('hidden',filter!=='All'&&!cats.includes(filter))})}));
+const buttons=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.card');
+buttons.forEach(btn=>btn.addEventListener('click',()=>{buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const filter=btn.dataset.filter;cards.forEach(card=>{const cats=card.dataset.category.split(' ');card.classList.toggle('hidden',filter!=='All'&&!cats.includes(filter))})}));
 async function loadOriginalIcons(){const imgs=[...document.querySelectorAll('img[data-icon-api]')];await Promise.all(imgs.map(async img=>{try{const r=await fetch(img.dataset.iconApi,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('icon');const data=await r.json();if(!data.image)throw new Error('icon');img.addEventListener('load',()=>img.parentElement.classList.remove('icon-loading'),{once:true});img.src=data.image}catch(e){img.parentElement.classList.remove('icon-loading')}}))}
 async function loadHeroImage(){const img=document.getElementById('heroTechDuo');if(!img)return;try{const parts=await Promise.all(Array.from({length:8},(_,i)=>fetch(`/assets/hero/part-${i}.txt`).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));img.addEventListener('load',()=>img.classList.add('loaded'),{once:true});img.src='data:image/webp;base64,'+parts.join('')}catch(e){}}
 loadOriginalIcons();loadHeroImage();
 </script>
-</body></html>
+</body>
+</html>
