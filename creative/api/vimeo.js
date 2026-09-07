@@ -4,7 +4,15 @@ const PER_PAGE = 100;
 
 function isVisibleVideo(video) {
   const view = video?.privacy?.view;
-  return !view || view === 'anybody' || view === 'unlisted';
+  if (!view) return true;
+  if (view === 'anybody') return true;
+  return process.env.VIMEO_INCLUDE_UNLISTED === 'true' && view === 'unlisted';
+}
+
+function toApiUrl(next) {
+  if (!next) return '';
+  if (/^https:\/\//i.test(next)) return next;
+  return `${VIMEO_API}${next.startsWith('/') ? '' : '/'}${next}`;
 }
 
 export default async function handler(req, res) {
@@ -53,8 +61,7 @@ export default async function handler(req, res) {
       const payload = await response.json();
       if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(isVisibleVideo));
 
-      const next = payload?.paging?.next;
-      nextUrl = next ? `${VIMEO_API}${next}` : '';
+      nextUrl = toApiUrl(payload?.paging?.next);
       page += 1;
     }
 
