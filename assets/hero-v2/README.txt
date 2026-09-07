@@ -1,0 +1,1 @@
+Hero source image uploaded separately.
