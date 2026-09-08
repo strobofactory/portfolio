@@ -14,19 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download exact high-resolution cover render
+      - name: Download full landscape cover render
         run: |
           set -euo pipefail
           mkdir -p creative/assets/books
           curl -fL --retry 3 --retry-delay 2 \
-            'https://export-download.canva.com/6cafdc84-bfc5-4149-8065-f63cd20d5379/0/0001-4528884673280561485.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH5AO7UJ26%2F20260908%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260908T090429Z&X-Amz-Expires=21089&X-Amz-Signature=105f72cecceb6875a9c8e14e9a3234d77f6923b2f36e3521b3a020b5c37df891&X-Amz-SignedHeaders=host%3Bx-amz-expected-bucket-owner&response-expires=Tue%2C%2008%20Sep%202026%2014%3A55%3A58%20GMT' \
+            'https://s3.amazonaws.com/document-export.canva.com/nHvWA/DAHUnfnHvWA/1/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4GDRW44L%2F20260907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260907T181722Z&X-Amz-Expires=73695&X-Amz-Signature=4dce63e56aedc07e81b9ab33d7c2827694d98fdc787f73059849a2e2ac41cb37&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2008%20Sep%202026%2014%3A45%3A37%20GMT' \
             -o creative/assets/books/mada-tabi-08-barcelona-original.png
-          test $(wc -c < creative/assets/books/mada-tabi-08-barcelona-original.png) -gt 200000
+          test $(wc -c < creative/assets/books/mada-tabi-08-barcelona-original.png) -gt 10000
           file creative/assets/books/mada-tabi-08-barcelona-original.png | grep -qi 'PNG image data'
       - name: Commit cover
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add creative/assets/books/mada-tabi-08-barcelona-original.png
-          git commit -m 'Add exact Barcelona book cover render'
+          git diff --cached --quiet && exit 0
+          git commit -m 'Replace cropped Barcelona cover with full render'
           git push
