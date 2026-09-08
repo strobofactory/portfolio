@@ -1,0 +1,31 @@
+name: Fetch Barcelona cover
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fetch-barcelona-cover.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-cover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download full-resolution cover
+        run: |
+          mkdir -p creative/assets/books
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://media.canva.com/v2/image-resize/format:JPG/height:1366/quality:100/uri:ifs%3A%2F%2FM%2Feb38ae1b-7617-4c01-9c3a-b8dfd1dfd750/watermark:F/width:2048?csig=AAAAAAAAAAAAAAAAAAAAAPkRYndleWNdc4ZOYdMBlXq3R4KC2M8EK1P0UAWsd4_V&exp=1788884525&osig=AAAAAAAAAAAAAAAAAAAAAO2WhtWyvqnfgW7GnGvs4L_o6yBOdThYdttBmEpg1UVX&signer=media-rpc&x-canva-quality=thumbnail' \
+            -o creative/assets/books/mada-tabi-08-barcelona-original.jpg
+          test $(wc -c < creative/assets/books/mada-tabi-08-barcelona-original.jpg) -gt 200000
+          file creative/assets/books/mada-tabi-08-barcelona-original.jpg | grep -qi 'JPEG image data'
+      - name: Commit cover
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add creative/assets/books/mada-tabi-08-barcelona-original.jpg
+          git commit -m 'Add original Barcelona book cover'
+          git push
