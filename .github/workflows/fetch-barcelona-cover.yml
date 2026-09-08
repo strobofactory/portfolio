@@ -14,20 +14,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download full landscape cover render
+      - name: Download uncropped Barcelona cover
         run: |
           set -euo pipefail
           mkdir -p creative/assets/books
           curl -fL --retry 3 --retry-delay 2 \
-            'https://s3.amazonaws.com/document-export.canva.com/nHvWA/DAHUnfnHvWA/1/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4GDRW44L%2F20260907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260907T181722Z&X-Amz-Expires=73695&X-Amz-Signature=4dce63e56aedc07e81b9ab33d7c2827694d98fdc787f73059849a2e2ac41cb37&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2008%20Sep%202026%2014%3A45%3A37%20GMT' \
-            -o creative/assets/books/mada-tabi-08-barcelona-original.png
-          test $(wc -c < creative/assets/books/mada-tabi-08-barcelona-original.png) -gt 10000
-          file creative/assets/books/mada-tabi-08-barcelona-original.png | grep -qi 'PNG image data'
+            'https://s3.amazonaws.com/document-export.canva.com/VcO3M/DAHUnpVcO3M/1/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUH4GDRW44L%2F20260907%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260907T154253Z&X-Amz-Expires=84693&X-Amz-Signature=e83afff36eb1f0f8ecf40096f3a53499d71f336b2197851473320a9af2427e34&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2008%20Sep%202026%2015%3A14%3A26%20GMT' \
+            -o creative/assets/books/mada-tabi-08-barcelona-full.png
+          test $(wc -c < creative/assets/books/mada-tabi-08-barcelona-full.png) -gt 10000
+          file creative/assets/books/mada-tabi-08-barcelona-full.png | grep -qi 'PNG image data'
       - name: Commit cover
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add creative/assets/books/mada-tabi-08-barcelona-original.png
+          git add creative/assets/books/mada-tabi-08-barcelona-full.png
           git diff --cached --quiet && exit 0
-          git commit -m 'Replace cropped Barcelona cover with full render'
+          git commit -m 'Add uncropped Barcelona cover'
           git push
