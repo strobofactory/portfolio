@@ -39,7 +39,7 @@ function headers(token) {
 }
 
 async function requestJson(url, token, optional = false) {
-  const response = await fetch(url, { headers: headers(token) });
+  const response = await fetch(url, { headers: headers(token), cache: 'no-store' });
   if (!response.ok) {
     if (optional && [400, 403, 404].includes(response.status)) return null;
     const body = await response.text();
@@ -159,13 +159,15 @@ export default async function handler(req, res) {
       source = result.videos.some(isInPortfolioParent) ? 'parent_project' : 'tag';
     }
 
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    res.setHeader('CDN-Cache-Control', 'no-store');
+    res.setHeader('Vercel-CDN-Cache-Control', 'no-store');
     return res.status(200).json({
       data: result.videos,
       meta: {
         count: result.videos.length,
         pagesFetched: result.pagesFetched,
-        cachedForSeconds: 300,
+        cachedForSeconds: 0,
         source,
         portfolioName: PORTFOLIO_NAME,
         collectionUri: collection?.uri || null
