@@ -1,5 +1,6 @@
 const grid = document.getElementById('filmGrid');
 const statusEl = document.getElementById('filmStatus');
+const countEl = document.getElementById('filmCount');
 const filters = Array.from(document.querySelectorAll('#filmFilters button'));
 let works = [];
 
@@ -56,7 +57,6 @@ function normalize(item) {
     id,
     name: item.name || 'Untitled',
     link: item.link || (id ? `https://vimeo.com/${id}` : '#'),
-    description: item.description || '',
     client: getPrefixedTag(tags, 'client'),
     category: inferCategory(item),
     year: date ? new Date(date).getFullYear() : '',
@@ -66,8 +66,11 @@ function normalize(item) {
 
 function render(filter = 'All') {
   const visible = filter === 'All' ? works : works.filter(work => work.category === filter);
+
   if (!visible.length) {
-    grid.innerHTML = '<div class="empty-state">このカテゴリの公開作品はまだありません。Vimeo側のタグ整理に合わせて自動反映されます。</div>';
+    grid.innerHTML = works.length
+      ? '<div class="empty-state">No selected work in this category yet.</div>'
+      : '<div class="empty-state">Selected film archive is being curated.</div>';
     return;
   }
 
@@ -95,15 +98,15 @@ async function loadVimeo() {
     if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
 
     works = (payload.data || []).map(normalize).filter(item => item.link && item.name);
-    statusEl.textContent = works.length
-      ? `${works.length} portfolio works — synced from Vimeo`
-      : 'No Vimeo works tagged “portfolio” yet';
+    if (countEl) countEl.textContent = String(works.length).padStart(2, '0');
+    statusEl.textContent = works.length ? `${works.length} selected works` : 'Selected archive in progress';
     render('All');
   } catch (error) {
     console.error('Vimeo load failed:', error);
-    statusEl.textContent = 'Vimeo connection is not configured yet. Add VIMEO_ACCESS_TOKEN in Vercel to activate the film archive.';
+    if (countEl) countEl.textContent = '—';
+    statusEl.textContent = 'Film archive temporarily unavailable';
     statusEl.classList.add('is-error');
-    grid.innerHTML = '<div class="empty-state">Film archive ready. Vimeo APIを接続すると、ここへ作品が自動表示されます。</div>';
+    grid.innerHTML = '<div class="empty-state">Selected film archive is temporarily unavailable.</div>';
   }
 }
 
