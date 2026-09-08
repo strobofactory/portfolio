@@ -95,7 +95,9 @@ async function loadVimeo() {
     if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
 
     works = (payload.data || []).map(normalize).filter(item => item.link && item.name);
-    statusEl.textContent = works.length ? `${works.length} works — synced from Vimeo` : 'No public Vimeo works found';
+    statusEl.textContent = works.length
+      ? `${works.length} portfolio works — synced from Vimeo`
+      : 'No Vimeo works tagged “portfolio” yet';
     render('All');
   } catch (error) {
     console.error('Vimeo load failed:', error);
