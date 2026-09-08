@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "src": "/",
+      "dest": "/api/site"
+    },
+    {
+      "src": "/index\\.html",
+      "dest": "/api/site"
+    },
+    {
       "src": "/assets/hero-tech-duo\\.webp",
       "dest": "/api/hero"
     },
