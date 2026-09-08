@@ -93,7 +93,10 @@ function render(filter = 'All') {
 
 async function loadVimeo() {
   try {
-    const response = await fetch('/api/vimeo', { headers: { Accept: 'application/json' } });
+    const response = await fetch(`/api/vimeo?t=${Date.now()}`, {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' }
+    });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
 
