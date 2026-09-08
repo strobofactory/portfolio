@@ -1,7 +1,7 @@
 const VIMEO_API = 'https://api.vimeo.com';
 const MAX_PAGES = 5;
 const PER_PAGE = 100;
-const PORTFOLIO_TAG = 'portfolio';
+const PORTFOLIO_NAME = 'portfolio';
 
 function isVisibleVideo(video) {
   const view = video?.privacy?.view;
@@ -16,18 +16,63 @@ function hasPortfolioTag(video) {
     const value = typeof tag === 'string'
       ? tag
       : (tag?.name || tag?.tag || tag?.canonical || '');
-    return String(value).trim().toLowerCase() === PORTFOLIO_TAG;
+    return String(value).trim().toLowerCase() === PORTFOLIO_NAME;
   });
-}
-
-function shouldPublish(video) {
-  return isVisibleVideo(video) && hasPortfolioTag(video);
 }
 
 function toApiUrl(next) {
   if (!next) return '';
   if (/^https:\/\//i.test(next)) return next;
   return `${VIMEO_API}${next.startsWith('/') ? '' : '/'}${next}`;
+}
+
+function headers(token) {
+  return {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/vnd.vimeo.*+json;version=3.4',
+    'User-Agent': 'STROBOFACTORY-Creative/1.0'
+  };
+}
+
+async function getJson(url, token) {
+  const response = await fetch(url, { headers: headers(token) });
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Vimeo API failed: ${response.status} ${body.slice(0, 180)}`);
+  }
+  return response.json();
+}
+
+async function findPortfolioProject(token) {
+  let nextUrl = `${VIMEO_API}/me/projects?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=uri,name`;
+  let page = 0;
+
+  while (nextUrl && page < MAX_PAGES) {
+    const payload = await getJson(nextUrl, token);
+    const project = (payload?.data || []).find(item =>
+      String(item?.name || '').trim().toLowerCase() === PORTFOLIO_NAME
+    );
+    if (project) return project;
+    nextUrl = toApiUrl(payload?.paging?.next);
+    page += 1;
+  }
+
+  return null;
+}
+
+async function fetchVideos(url, token, fields, filterFn = isVisibleVideo) {
+  const videos = [];
+  let nextUrl = url;
+  let page = 0;
+
+  while (nextUrl && page < MAX_PAGES) {
+    const payload = await getJson(nextUrl, token);
+    if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(filterFn));
+    nextUrl = toApiUrl(payload?.paging?.next);
+    page += 1;
+  }
+
+  return { videos, pagesFetched: page };
 }
 
 export default async function handler(req, res) {
@@ -55,43 +100,35 @@ export default async function handler(req, res) {
   ].join(',');
 
   try {
-    const videos = [];
-    let nextUrl = `${VIMEO_API}/me/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
-    let page = 0;
+    const project = await findPortfolioProject(token);
+    let result;
+    let source;
 
-    while (nextUrl && page < MAX_PAGES) {
-      const response = await fetch(nextUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/vnd.vimeo.*+json;version=3.4',
-          'User-Agent': 'STROBOFACTORY-Creative/1.0'
-        }
-      });
-
-      if (!response.ok) {
-        const body = await response.text();
-        throw new Error(`Vimeo API failed: ${response.status} ${body.slice(0, 160)}`);
-      }
-
-      const payload = await response.json();
-      if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(shouldPublish));
-
-      nextUrl = toApiUrl(payload?.paging?.next);
-      page += 1;
+    if (project?.uri) {
+      const projectId = String(project.uri).split('/').filter(Boolean).pop();
+      const url = `${VIMEO_API}/me/projects/${encodeURIComponent(projectId)}/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
+      result = await fetchVideos(url, token, fields, isVisibleVideo);
+      source = 'project';
+    } else {
+      const url = `${VIMEO_API}/me/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
+      result = await fetchVideos(url, token, fields, video => isVisibleVideo(video) && hasPortfolioTag(video));
+      source = 'tag';
     }
 
-    res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
     return res.status(200).json({
-      data: videos,
+      data: result.videos,
       meta: {
-        count: videos.length,
-        pagesFetched: page,
-        cachedForSeconds: 900,
-        requiredTag: PORTFOLIO_TAG
+        count: result.videos.length,
+        pagesFetched: result.pagesFetched,
+        cachedForSeconds: 300,
+        source,
+        portfolioName: PORTFOLIO_NAME,
+        projectUri: project?.uri || null
       }
     });
   } catch (error) {
     console.error('Vimeo API error', error);
-    return res.status(502).json({ error: 'Unable to load Vimeo works' });
+    return res.status(502).json({ error: 'Unable to load Vimeo portfolio works' });
   }
 }
