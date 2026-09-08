@@ -1,12 +1,27 @@
 const VIMEO_API = 'https://api.vimeo.com';
 const MAX_PAGES = 5;
 const PER_PAGE = 100;
+const PORTFOLIO_TAG = 'portfolio';
 
 function isVisibleVideo(video) {
   const view = video?.privacy?.view;
   if (!view) return true;
   if (view === 'anybody') return true;
   return process.env.VIMEO_INCLUDE_UNLISTED === 'true' && view === 'unlisted';
+}
+
+function hasPortfolioTag(video) {
+  const tags = Array.isArray(video?.tags) ? video.tags : [];
+  return tags.some(tag => {
+    const value = typeof tag === 'string'
+      ? tag
+      : (tag?.name || tag?.tag || tag?.canonical || '');
+    return String(value).trim().toLowerCase() === PORTFOLIO_TAG;
+  });
+}
+
+function shouldPublish(video) {
+  return isVisibleVideo(video) && hasPortfolioTag(video);
 }
 
 function toApiUrl(next) {
@@ -59,7 +74,7 @@ export default async function handler(req, res) {
       }
 
       const payload = await response.json();
-      if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(isVisibleVideo));
+      if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(shouldPublish));
 
       nextUrl = toApiUrl(payload?.paging?.next);
       page += 1;
@@ -71,7 +86,8 @@ export default async function handler(req, res) {
       meta: {
         count: videos.length,
         pagesFetched: page,
-        cachedForSeconds: 900
+        cachedForSeconds: 900,
+        requiredTag: PORTFOLIO_TAG
       }
     });
   } catch (error) {
