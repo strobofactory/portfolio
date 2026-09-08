@@ -20,10 +20,10 @@ function hasPortfolioTag(video) {
   });
 }
 
-function toApiUrl(next) {
-  if (!next) return '';
-  if (/^https:\/\//i.test(next)) return next;
-  return `${VIMEO_API}${next.startsWith('/') ? '' : '/'}${next}`;
+function toApiUrl(value) {
+  if (!value) return '';
+  if (/^https:\/\//i.test(value)) return value;
+  return `${VIMEO_API}${value.startsWith('/') ? '' : '/'}${value}`;
 }
 
 function headers(token) {
@@ -34,25 +34,37 @@ function headers(token) {
   };
 }
 
-async function getJson(url, token) {
+async function requestJson(url, token, optional = false) {
   const response = await fetch(url, { headers: headers(token) });
   if (!response.ok) {
+    if (optional && [400, 403, 404].includes(response.status)) return null;
     const body = await response.text();
     throw new Error(`Vimeo API failed: ${response.status} ${body.slice(0, 180)}`);
   }
   return response.json();
 }
 
-async function findPortfolioProject(token) {
-  let nextUrl = `${VIMEO_API}/me/projects?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=uri,name`;
+async function findNamedCollection(token, type, endpoint) {
+  let nextUrl = `${VIMEO_API}${endpoint}?per_page=${PER_PAGE}&page=1&fields=${encodeURIComponent('uri,name,metadata.connections.videos.uri')}`;
   let page = 0;
 
   while (nextUrl && page < MAX_PAGES) {
-    const payload = await getJson(nextUrl, token);
-    const project = (payload?.data || []).find(item =>
-      String(item?.name || '').trim().toLowerCase() === PORTFOLIO_NAME
+    const payload = await requestJson(nextUrl, token, true);
+    if (!payload) return null;
+
+    const item = (payload?.data || []).find(entry =>
+      String(entry?.name || '').trim().toLowerCase() === PORTFOLIO_NAME
     );
-    if (project) return project;
+
+    if (item) {
+      return {
+        type,
+        uri: item.uri || '',
+        name: item.name || PORTFOLIO_NAME,
+        videosUri: item?.metadata?.connections?.videos?.uri || ''
+      };
+    }
+
     nextUrl = toApiUrl(payload?.paging?.next);
     page += 1;
   }
@@ -60,13 +72,36 @@ async function findPortfolioProject(token) {
   return null;
 }
 
-async function fetchVideos(url, token, fields, filterFn = isVisibleVideo) {
+async function detectPortfolioCollection(token) {
+  const candidates = [
+    ['folder', '/me/projects'],
+    ['showcase', '/me/albums'],
+    ['portfolio', '/me/portfolios']
+  ];
+
+  for (const [type, endpoint] of candidates) {
+    const found = await findNamedCollection(token, type, endpoint);
+    if (found) return found;
+  }
+
+  return null;
+}
+
+function fallbackVideosUri(collection) {
+  const id = String(collection?.uri || '').split('/').filter(Boolean).pop();
+  if (!id) return '';
+  if (collection.type === 'folder') return `/me/projects/${id}/videos`;
+  if (collection.type === 'showcase') return `/me/albums/${id}/videos`;
+  return `${collection.uri}/videos`;
+}
+
+async function fetchVideos(url, token, filterFn = isVisibleVideo) {
   const videos = [];
   let nextUrl = url;
   let page = 0;
 
   while (nextUrl && page < MAX_PAGES) {
-    const payload = await getJson(nextUrl, token);
+    const payload = await requestJson(nextUrl, token);
     if (Array.isArray(payload?.data)) videos.push(...payload.data.filter(filterFn));
     nextUrl = toApiUrl(payload?.paging?.next);
     page += 1;
@@ -100,18 +135,19 @@ export default async function handler(req, res) {
   ].join(',');
 
   try {
-    const project = await findPortfolioProject(token);
+    const collection = await detectPortfolioCollection(token);
     let result;
     let source;
 
-    if (project?.uri) {
-      const projectId = String(project.uri).split('/').filter(Boolean).pop();
-      const url = `${VIMEO_API}/me/projects/${encodeURIComponent(projectId)}/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
-      result = await fetchVideos(url, token, fields, isVisibleVideo);
-      source = 'project';
+    if (collection) {
+      const connection = collection.videosUri || fallbackVideosUri(collection);
+      const separator = connection.includes('?') ? '&' : '?';
+      const url = `${toApiUrl(connection)}${separator}per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
+      result = await fetchVideos(url, token, isVisibleVideo);
+      source = collection.type;
     } else {
       const url = `${VIMEO_API}/me/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
-      result = await fetchVideos(url, token, fields, video => isVisibleVideo(video) && hasPortfolioTag(video));
+      result = await fetchVideos(url, token, video => isVisibleVideo(video) && hasPortfolioTag(video));
       source = 'tag';
     }
 
@@ -124,7 +160,7 @@ export default async function handler(req, res) {
         cachedForSeconds: 300,
         source,
         portfolioName: PORTFOLIO_NAME,
-        projectUri: project?.uri || null
+        collectionUri: collection?.uri || null
       }
     });
   } catch (error) {
