@@ -1,0 +1,49 @@
+name: Add drone and 3DCG to Creative
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-drone-3dcg-creative.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-creative:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update Creative portfolio services
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('creative/index.html')
+          s = p.read_text()
+
+          s = s.replace(
+            '<link rel="stylesheet" href="/film-grid.css">',
+            '''<link rel="stylesheet" href="/film-grid.css">\n  <style>\n    .discipline-index--six{grid-template-columns:repeat(3,1fr)}\n    .discipline-index--six article:nth-child(3n){border-right:0}\n    .discipline-index--six article:nth-child(3n+1){padding-left:0}\n    .discipline-index--six article:nth-child(n+4){border-top:1px solid var(--line)}\n    @media(max-width:1080px){.discipline-index--six{grid-template-columns:repeat(2,1fr)}.discipline-index--six article:nth-child(3n){border-right:1px solid var(--line)}.discipline-index--six article:nth-child(even){border-right:0}.discipline-index--six article:nth-child(odd){padding-left:0}}\n    @media(max-width:760px){.discipline-index--six{grid-template-columns:1fr}.discipline-index--six article{border-right:0!important;padding-left:0!important}}\n  </style>'''
+          )
+
+          s = s.replace(
+            '企業VP、CM、アニメーション、YouTube、ライブ配信に加え、生成AIを活用した映像制作にも対応します。企画段階からAIを導入し、実写・生成・編集を一つのワークフローで設計します。',
+            '企業VP、CM、アニメーション、YouTube、ライブ配信、ドローン撮影、3DCG制作に加え、生成AIを活用した映像制作にも対応します。企画段階からAIを導入し、実写・空撮・3DCG・生成・編集を一つのワークフローで設計します。'
+          )
+
+          s = s.replace(
+            '<div class="discipline-index">\n        <article><span>01</span><h3>企業映像</h3><p>会社紹介、採用、教育、製品・技術紹介。AIによる構成・プリビズ支援にも対応。</p></article>\n        <article><span>02</span><h3>CM・広告</h3><p>テレビCM、Web広告、SNS。実写と生成AIを組み合わせた短尺制作。</p></article>\n        <article><span>03</span><h3>AI映像</h3><p>Veo、Sora、Midjourney等を活用した生成映像・ハイブリッド制作。</p></article>\n        <article><span>04</span><h3>ライブ・イベント</h3><p>配信・収録に加え、AIを使った文字起こしやコンテンツ再活用まで設計。</p></article>\n      </div>',
+            '<div class="discipline-index discipline-index--six">\n        <article><span>01</span><h3>企業映像</h3><p>会社紹介、採用、教育、製品・技術紹介。AIによる構成・プリビズ支援にも対応。</p></article>\n        <article><span>02</span><h3>CM・広告</h3><p>テレビCM、Web広告、SNS。実写と生成AIを組み合わせた短尺制作。</p></article>\n        <article><span>03</span><h3>AI映像</h3><p>Veo、Sora、Midjourney等を活用した生成映像・ハイブリッド制作。</p></article>\n        <article><span>04</span><h3>ライブ・イベント</h3><p>配信・収録に加え、AIを使った文字起こしやコンテンツ再活用まで設計。</p></article>\n        <article><span>05</span><h3>ドローン撮影</h3><p>空撮・ロケーション撮影・映像素材収録に対応。</p></article>\n        <article><span>06</span><h3>3DCG制作</h3><p>3DCG制作・アニメーション・映像への組み込みに対応。</p></article>\n      </div>'
+          )
+
+          p.write_text(s)
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add creative/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Add drone and 3DCG production to Creative portfolio'
+          git push
