@@ -13,6 +13,15 @@ const categoryAliases = [
   { label: 'Corporate', keys: ['corporate', 'company', 'vp', 'brand', 'documentary'] }
 ];
 
+const categoryDisplay = {
+  'Corporate': '企業映像',
+  'Commercial': 'CM・広告',
+  'AI Video': 'AI映像',
+  'Animation': 'アニメーション',
+  'YouTube': 'YouTube',
+  'Live / Event': 'ライブ・イベント'
+};
+
 function esc(value = '') {
   return String(value).replace(/[&<>'"]/g, ch => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
@@ -55,7 +64,7 @@ function normalize(item) {
   const id = String(item.uri || '').split('/').filter(Boolean).pop() || '';
   return {
     id,
-    name: item.name || 'Untitled',
+    name: item.name || '無題',
     link: item.link || (id ? `https://vimeo.com/${id}` : '#'),
     client: getPrefixedTag(tags, 'client'),
     category: inferCategory(item),
@@ -69,8 +78,8 @@ function render(filter = 'All') {
 
   if (!visible.length) {
     grid.innerHTML = works.length
-      ? '<div class="empty-state">No selected work in this category yet.</div>'
-      : '<div class="empty-state">Selected film archive is being curated.</div>';
+      ? '<div class="empty-state">このカテゴリの掲載作品はまだありません。</div>'
+      : '<div class="empty-state">掲載作品を準備しています。</div>';
     return;
   }
 
@@ -81,7 +90,7 @@ function render(filter = 'All') {
       </div>
       <div class="film-meta">
         <div>
-          <div class="film-category">${esc(work.category)}</div>
+          <div class="film-category">${esc(categoryDisplay[work.category] || work.category)}</div>
           <h3>${esc(work.name)}</h3>
           ${work.client ? `<p class="film-client">${esc(work.client)}</p>` : ''}
         </div>
@@ -102,14 +111,14 @@ async function loadVimeo() {
 
     works = (payload.data || []).map(normalize).filter(item => item.link && item.name);
     if (countEl) countEl.textContent = String(works.length).padStart(2, '0');
-    statusEl.textContent = works.length ? `${works.length} selected works` : 'Selected archive in progress';
+    statusEl.textContent = works.length ? `${works.length}件の掲載作品` : '掲載作品を準備しています';
     render('All');
   } catch (error) {
     console.error('Vimeo load failed:', error);
     if (countEl) countEl.textContent = '—';
-    statusEl.textContent = 'Film archive temporarily unavailable';
+    statusEl.textContent = '映像作品を一時的に読み込めません';
     statusEl.classList.add('is-error');
-    grid.innerHTML = '<div class="empty-state">Selected film archive is temporarily unavailable.</div>';
+    grid.innerHTML = '<div class="empty-state">映像作品を一時的に読み込めません。</div>';
   }
 }
 
