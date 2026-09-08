@@ -1,0 +1,40 @@
+name: Test Canva Original Asset
+
+on:
+  push:
+    branches:
+      - tmp/barcelona-original-upload
+    paths:
+      - '.github/workflows/test-canva-original.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch high-resolution Canva asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL='https://media.canva.com/v2/image-resize/format:JPG/height:1366/quality:100/uri:ifs%3A%2F%2FM%2Feb38ae1b-7617-4c01-9c3a-b8dfd1dfd750/watermark:F/width:2048?csig=AAAAAAAAAAAAAAAAAAAAAPkRYndleWNdc4ZOYdMBlXq3R4KC2M8EK1P0UAWsd4_V&exp=1788884525&osig=AAAAAAAAAAAAAAAAAAAAAO2WhtWyvqnfgW7GnGvs4L_o6yBOdThYdttBmEpg1UVX&signer=media-rpc&x-canva-quality=thumbnail'
+          mkdir -p creative/assets/books
+          status=$(curl -L -sS -w '%{http_code}' -o creative/assets/books/canva-full-test.jpg "$URL")
+          bytes=$(wc -c < creative/assets/books/canva-full-test.jpg | tr -d ' ')
+          sha=$(sha256sum creative/assets/books/canva-full-test.jpg | awk '{print $1}')
+          printf 'status=%s\nbytes=%s\nsha256=%s\n' "$status" "$bytes" "$sha" > creative/assets/books/canva-test-meta.txt
+          if [ "$status" != '200' ]; then
+            rm -f creative/assets/books/canva-full-test.jpg
+          fi
+      - name: Commit test result
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add creative/assets/books/canva-test-meta.txt creative/assets/books/canva-full-test.jpg || true
+          git commit -m 'Record Canva original asset fetch test' || exit 0
+          git push origin HEAD:tmp/barcelona-original-upload
