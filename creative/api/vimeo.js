@@ -20,6 +20,10 @@ function hasPortfolioTag(video) {
   });
 }
 
+function isInPortfolioParent(video) {
+  return String(video?.parent_project?.name || '').trim().toLowerCase() === PORTFOLIO_NAME;
+}
+
 function toApiUrl(value) {
   if (!value) return '';
   if (/^https:\/\//i.test(value)) return value;
@@ -131,7 +135,9 @@ export default async function handler(req, res) {
     'pictures.sizes',
     'tags',
     'duration',
-    'privacy.view'
+    'privacy.view',
+    'parent_project.uri',
+    'parent_project.name'
   ].join(',');
 
   try {
@@ -147,8 +153,10 @@ export default async function handler(req, res) {
       source = collection.type;
     } else {
       const url = `${VIMEO_API}/me/videos?per_page=${PER_PAGE}&page=1&sort=date&direction=desc&fields=${encodeURIComponent(fields)}`;
-      result = await fetchVideos(url, token, video => isVisibleVideo(video) && hasPortfolioTag(video));
-      source = 'tag';
+      result = await fetchVideos(url, token, video =>
+        isVisibleVideo(video) && (isInPortfolioParent(video) || hasPortfolioTag(video))
+      );
+      source = result.videos.some(isInPortfolioParent) ? 'parent_project' : 'tag';
     }
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=3600');
