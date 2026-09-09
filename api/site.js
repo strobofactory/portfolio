@@ -51,6 +51,78 @@ module.exports = (req, res) => {
     const pos = html.lastIndexOf(marker);
     if (pos === -1) throw new Error('systems section marker not found');
     html = html.slice(0, pos) + extraCases + html.slice(pos);
+
+    const responsiveCss = `
+<style id="products-responsive-v2">
+html,body{max-width:100%;overflow-x:hidden}
+img{max-width:100%}
+@media(max-width:900px){
+  .topbar{height:auto;min-height:72px;padding:16px 24px;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .topbar nav{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .topbar nav::-webkit-scrollbar{display:none}
+  .topbar nav a{padding:8px 0 7px;flex:0 0 auto}
+  .langSwitch{flex:0 0 auto}
+  .hero{min-height:auto;padding:68px 24px 0}
+  .heroCopy{width:100%;max-width:none}
+  .hero h1{font-size:clamp(72px,14vw,118px);line-height:.82}
+  .heroVisual{position:relative;right:auto;bottom:auto;width:112%;height:auto;margin:22px -6% 0;justify-content:center}
+  .heroVisual img{width:100%;transform:none}
+  .products,.systems{padding-left:24px;padding-right:24px}
+  .grid{grid-template-columns:1fr}
+  .card,.card:nth-child(odd),.card:nth-child(even){padding:32px 0;border-right:0}
+  .caseStudy{grid-template-columns:1fr;gap:30px}
+  .caseBody{grid-template-columns:1fr}
+  .caseBody .caseWide,.caseMeta,.caseStack{grid-column:auto}
+}
+@media(max-width:640px){
+  .topbar{padding:14px 18px;gap:12px}
+  .brand{font-size:12px;letter-spacing:.11em;max-width:100%}
+  .topbar nav{gap:15px;font-size:10px}
+  .langSwitch button{font-size:10px;padding:5px 2px}
+  .hero{padding:46px 18px 0}
+  .eyebrow,.kicker{font-size:9px;letter-spacing:.16em}
+  .hero h1{font-size:clamp(54px,18vw,76px);margin:21px 0 25px;letter-spacing:-.065em}
+  .lead{font-size:14px;line-height:1.72}
+  .heroMeta{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:28px;padding-top:18px}
+  .heroStat:last-child{grid-column:1/-1}
+  .heroVisual{width:124%;margin:12px -12% 0}
+  .products{padding:54px 18px 70px}
+  .systems{padding:0 18px 70px}
+  .sectionHead,.systemsHead{margin-bottom:28px}
+  h2{font-size:clamp(38px,13vw,58px);overflow-wrap:anywhere}
+  .filters{width:100%;gap:12px 16px;justify-content:flex-start}
+  .filters button{font-size:10px}
+  .card{grid-template-columns:96px minmax(0,1fr);gap:18px;min-height:0}
+  .appIcon{width:88px;height:88px;flex-basis:88px;border-radius:21px}
+  .cardTop{gap:12px}
+  .card h3{font-size:21px;padding-right:18px;overflow-wrap:anywhere}
+  .desc{font-size:12px;line-height:1.65}
+  .status{font-size:8px}
+  .stack{display:none}
+  .cardFoot{right:0;top:22px}
+  .caseStudy{padding:32px 0 38px;gap:22px}
+  .caseVisual{margin:0;border-left:0;border-right:0}
+  .caseVisual img{width:100%;height:auto;aspect-ratio:auto!important;object-fit:contain!important}
+  .caseIntro h3{font-size:30px;overflow-wrap:anywhere}
+  .caseBody{gap:18px}
+  .caseBody p{font-size:13px;line-height:1.75}
+  .caseMeta{grid-template-columns:1fr;gap:14px}
+  .caseMeta>div:last-child{grid-column:auto}
+  .caseStack{gap:7px 12px}
+  footer{padding:30px 18px 40px;grid-template-columns:1fr;gap:16px}
+}
+@media(max-width:420px){
+  .topbar nav a[href*="strobofactory.net"]{display:none}
+  .hero h1{font-size:52px}
+  .heroMeta{grid-template-columns:1fr 1fr}
+  .card{grid-template-columns:78px minmax(0,1fr);gap:14px}
+  .appIcon{width:72px;height:72px;flex-basis:72px;border-radius:18px}
+  .card h3{font-size:19px}
+  .desc{font-size:11.5px}
+  .caseIntro h3{font-size:27px}
+}
+</style>`;
+    html = html.replace('</head>', responsiveCss + '</head>');
     html = html.replace('</body>', '<script src="/products-i18n.js"></script><script src="/products-i18n-long.js"></script></body>');
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
