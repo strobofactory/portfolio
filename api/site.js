@@ -51,7 +51,7 @@ module.exports = (req, res) => {
     const pos = html.lastIndexOf(marker);
     if (pos === -1) throw new Error('systems section marker not found');
     html = html.slice(0, pos) + extraCases + html.slice(pos);
-    html = html.replace('</body>', '<script src="/products-i18n.js"></script></body>');
+    html = html.replace('</body>', '<script src="/products-i18n.js"></script><script src="/products-i18n-long.js"></script></body>');
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
