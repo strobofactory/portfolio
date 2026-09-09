@@ -66,6 +66,15 @@ function buildLanguageSelector() {
 }
 buildLanguageSelector();
 
+function applySocialHeadingSpacing() {
+  if (document.getElementById('social-heading-spacing')) return;
+  const style = document.createElement('style');
+  style.id = 'social-heading-spacing';
+  style.textContent = `.social.section .section-head h2{line-height:1.12}`;
+  document.head.appendChild(style);
+}
+applySocialHeadingSpacing();
+
 function esc(value = '') { return String(value).replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch])); }
 function tagsToStrings(tags) { return Array.isArray(tags) ? tags.map(tag => typeof tag === 'string' ? tag : tag?.name).filter(Boolean) : []; }
 function getPrefixedTag(tags, prefix) { const lower=prefix.toLowerCase(); const found=tags.find(tag=>tag.toLowerCase().startsWith(`${lower}:`)||tag.toLowerCase().startsWith(`${lower}=`)); if(!found)return ''; return found.slice(found.indexOf(':')>=0?found.indexOf(':')+1:found.indexOf('=')+1).trim(); }
