@@ -2,7 +2,7 @@ const grid = document.getElementById('filmGrid');
 const statusEl = document.getElementById('filmStatus');
 const countEl = document.getElementById('filmCount');
 const filters = Array.from(document.querySelectorAll('#filmFilters button'));
-const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
+const lang = (document.documentElement.lang || 'ja').toLowerCase();
 let works = [];
 
 const categoryAliases = [
@@ -14,137 +14,44 @@ const categoryAliases = [
   { label: 'Corporate', keys: ['corporate', 'company', 'vp', 'brand', 'documentary'] }
 ];
 
-const categoryDisplayJa = {
-  'Corporate': '企業映像',
-  'Commercial': 'CM・広告',
-  'AI Video': 'AI映像',
-  'Animation': 'アニメーション',
-  'YouTube': 'YouTube',
-  'Live / Event': 'ライブ・イベント'
+const categoryDisplay = {
+  ja: {'Corporate':'企業映像','Commercial':'CM・広告','AI Video':'AI映像','Animation':'アニメーション','YouTube':'YouTube','Live / Event':'ライブ・イベント'},
+  en: {'Corporate':'Corporate','Commercial':'Commercial','AI Video':'AI Video','Animation':'Animation','YouTube':'YouTube','Live / Event':'Live / Event'},
+  es: {'Corporate':'Corporativo','Commercial':'Publicidad','AI Video':'Vídeo IA','Animation':'Animación','YouTube':'YouTube','Live / Event':'Directo / Evento'},
+  zh: {'Corporate':'企业影像','Commercial':'广告','AI Video':'AI 视频','Animation':'动画','YouTube':'YouTube','Live / Event':'直播 / 活动'},
+  ko: {'Corporate':'기업 영상','Commercial':'광고','AI Video':'AI 영상','Animation':'애니메이션','YouTube':'YouTube','Live / Event':'라이브 / 이벤트'}
 };
 
-const categoryDisplay = isEnglish ? Object.fromEntries(categoryAliases.map(item => [item.label, item.label])) : categoryDisplayJa;
-
-const uiText = isEnglish ? {
-  untitled: 'Untitled',
-  categoryEmpty: 'No works are currently listed in this category.',
-  preparing: 'Portfolio works are being prepared.',
-  loaded: count => `${count} works listed`,
-  loadError: 'Video works are temporarily unavailable.'
-} : {
-  untitled: '無題',
-  categoryEmpty: 'このカテゴリの掲載作品はまだありません。',
-  preparing: '掲載作品を準備しています。',
-  loaded: count => `${count}件の掲載作品`,
-  loadError: '映像作品を一時的に読み込めません。'
+const ui = {
+  ja:{untitled:'無題',categoryEmpty:'このカテゴリの掲載作品はまだありません。',preparing:'掲載作品を準備しています。',loaded:n=>`${n}件の掲載作品`,loadError:'映像作品を一時的に読み込めません。'},
+  en:{untitled:'Untitled',categoryEmpty:'No works are currently listed in this category.',preparing:'Portfolio works are being prepared.',loaded:n=>`${n} works listed`,loadError:'Video works are temporarily unavailable.'},
+  es:{untitled:'Sin título',categoryEmpty:'Todavía no hay trabajos publicados en esta categoría.',preparing:'Estamos preparando los trabajos del portafolio.',loaded:n=>`${n} trabajos publicados`,loadError:'Los trabajos de vídeo no están disponibles temporalmente.'},
+  zh:{untitled:'未命名',categoryEmpty:'该分类目前还没有展示作品。',preparing:'正在准备作品内容。',loaded:n=>`已展示 ${n} 件作品`,loadError:'视频作品暂时无法加载。'},
+  ko:{untitled:'제목 없음',categoryEmpty:'이 카테고리에는 아직 공개된 작품이 없습니다.',preparing:'포트폴리오 작품을 준비하고 있습니다.',loaded:n=>`${n}개 작품`,loadError:'영상 작품을 일시적으로 불러올 수 없습니다.'}
 };
+const locale = lang.startsWith('es')?'es':lang.startsWith('zh')?'zh':lang.startsWith('ko')?'ko':lang.startsWith('en')?'en':'ja';
+const uiText = ui[locale];
 
-function esc(value = '') {
-  return String(value).replace(/[&<>'\"]/g, ch => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '\"': '&quot;'
-  }[ch]));
-}
-
-function tagsToStrings(tags) {
-  return Array.isArray(tags) ? tags.map(tag => typeof tag === 'string' ? tag : tag?.name).filter(Boolean) : [];
-}
-
-function getPrefixedTag(tags, prefix) {
-  const lower = prefix.toLowerCase();
-  const found = tags.find(tag => tag.toLowerCase().startsWith(`${lower}:`) || tag.toLowerCase().startsWith(`${lower}=`));
-  if (!found) return '';
-  return found.slice(found.indexOf(':') >= 0 ? found.indexOf(':') + 1 : found.indexOf('=') + 1).trim();
-}
-
-function inferCategory(item) {
-  const tags = tagsToStrings(item.tags);
-  const explicit = getPrefixedTag(tags, 'category');
-  if (explicit) {
-    const exact = categoryAliases.find(entry => entry.label.toLowerCase() === explicit.toLowerCase());
-    return exact ? exact.label : explicit;
-  }
-
-  const haystack = `${item.name || ''} ${item.description || ''} ${tags.join(' ')}`.toLowerCase();
-  const match = categoryAliases.find(entry => entry.keys.some(key => haystack.includes(key)));
-  return match ? match.label : 'Corporate';
-}
-
-function getThumb(item) {
-  const sizes = item?.pictures?.sizes || [];
-  if (!sizes.length) return '';
-  return [...sizes].sort((a, b) => (b.width || 0) - (a.width || 0))[0]?.link || sizes[sizes.length - 1]?.link || '';
-}
-
-function normalize(item) {
-  const tags = tagsToStrings(item.tags);
-  const date = item.release_time || item.created_time || '';
-  const id = String(item.uri || '').split('/').filter(Boolean).pop() || '';
-  return {
-    id,
-    name: item.name || uiText.untitled,
-    link: item.link || (id ? `https://vimeo.com/${id}` : '#'),
-    client: getPrefixedTag(tags, 'client'),
-    category: inferCategory(item),
-    year: date ? new Date(date).getFullYear() : '',
-    thumb: getThumb(item)
-  };
-}
-
-function render(filter = 'All') {
-  const visible = filter === 'All' ? works : works.filter(work => work.category === filter);
-
-  if (!visible.length) {
-    grid.innerHTML = works.length
-      ? `<div class="empty-state">${uiText.categoryEmpty}</div>`
-      : `<div class="empty-state">${uiText.preparing}</div>`;
-    return;
-  }
-
-  grid.innerHTML = visible.map(work => `
-    <a class="film-card" href="${esc(work.link)}" target="_blank" rel="noreferrer">
-      <div class="film-thumb">
-        ${work.thumb ? `<img src="${esc(work.thumb)}" alt="${esc(work.name)}" loading="lazy">` : ''}
-      </div>
-      <div class="film-meta">
-        <div>
-          <div class="film-category">${esc(categoryDisplay[work.category] || work.category)}</div>
-          <h3>${esc(work.name)}</h3>
-          ${work.client ? `<p class="film-client">${esc(work.client)}</p>` : ''}
-        </div>
-        <div class="film-year">${esc(work.year)}</div>
-      </div>
-    </a>
-  `).join('');
-}
-
-async function loadVimeo() {
-  try {
-    const response = await fetch(`/api/vimeo?t=${Date.now()}`, {
-      cache: 'no-store',
-      headers: { Accept: 'application/json' }
-    });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
-
-    works = (payload.data || []).map(normalize).filter(item => item.link && item.name);
-    if (countEl) countEl.textContent = String(works.length).padStart(2, '0');
-    statusEl.textContent = works.length ? uiText.loaded(works.length) : uiText.preparing;
-    render('All');
-  } catch (error) {
-    console.error('Vimeo load failed:', error);
-    if (countEl) countEl.textContent = '—';
-    statusEl.textContent = uiText.loadError;
-    statusEl.classList.add('is-error');
-    grid.innerHTML = `<div class="empty-state">${uiText.loadError}</div>`;
-  }
-}
-
-filters.forEach(button => {
-  button.addEventListener('click', () => {
-    filters.forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    render(button.dataset.filter || 'All');
+function buildLanguageSwitch(){
+  const nav=document.querySelector('.topbar nav'); if(!nav) return;
+  nav.querySelectorAll('a[lang]').forEach(a=>a.remove());
+  const paths={ja:'/',en:'/en.html',es:'/es.html',zh:'/zh.html',ko:'/ko.html'};
+  const labels={ja:'JP',en:'EN',es:'ES',zh:'中文',ko:'한국어'};
+  Object.entries(paths).forEach(([code,href])=>{
+    const a=document.createElement('a'); a.href=href; a.lang=code; a.textContent=labels[code];
+    if(code===locale) a.setAttribute('aria-current','page');
+    nav.appendChild(a);
   });
-});
+}
+buildLanguageSwitch();
 
+function esc(value = '') {return String(value).replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));}
+function tagsToStrings(tags) {return Array.isArray(tags) ? tags.map(tag => typeof tag === 'string' ? tag : tag?.name).filter(Boolean) : [];}
+function getPrefixedTag(tags, prefix) {const lower=prefix.toLowerCase(); const found=tags.find(tag=>tag.toLowerCase().startsWith(`${lower}:`)||tag.toLowerCase().startsWith(`${lower}=`)); if(!found)return ''; return found.slice(found.indexOf(':')>=0?found.indexOf(':')+1:found.indexOf('=')+1).trim();}
+function inferCategory(item) {const tags=tagsToStrings(item.tags); const explicit=getPrefixedTag(tags,'category'); if(explicit){const exact=categoryAliases.find(entry=>entry.label.toLowerCase()===explicit.toLowerCase()); return exact?exact.label:explicit;} const haystack=`${item.name||''} ${item.description||''} ${tags.join(' ')}`.toLowerCase(); const match=categoryAliases.find(entry=>entry.keys.some(key=>haystack.includes(key))); return match?match.label:'Corporate';}
+function getThumb(item) {const sizes=item?.pictures?.sizes||[]; if(!sizes.length)return ''; return [...sizes].sort((a,b)=>(b.width||0)-(a.width||0))[0]?.link||sizes[sizes.length-1]?.link||'';}
+function normalize(item) {const tags=tagsToStrings(item.tags); const date=item.release_time||item.created_time||''; const id=String(item.uri||'').split('/').filter(Boolean).pop()||''; return {id,name:item.name||uiText.untitled,link:item.link||(id?`https://vimeo.com/${id}`:'#'),client:getPrefixedTag(tags,'client'),category:inferCategory(item),year:date?new Date(date).getFullYear():'',thumb:getThumb(item)};}
+function render(filter='All') {const visible=filter==='All'?works:works.filter(work=>work.category===filter); if(!visible.length){grid.innerHTML=works.length?`<div class="empty-state">${uiText.categoryEmpty}</div>`:`<div class="empty-state">${uiText.preparing}</div>`;return;} grid.innerHTML=visible.map(work=>`<a class="film-card" href="${esc(work.link)}" target="_blank" rel="noreferrer"><div class="film-thumb">${work.thumb?`<img src="${esc(work.thumb)}" alt="${esc(work.name)}" loading="lazy">`:''}</div><div class="film-meta"><div><div class="film-category">${esc((categoryDisplay[locale]||categoryDisplay.en)[work.category]||work.category)}</div><h3>${esc(work.name)}</h3>${work.client?`<p class="film-client">${esc(work.client)}</p>`:''}</div><div class="film-year">${esc(work.year)}</div></div></a>`).join('');}
+async function loadVimeo(){try{const response=await fetch(`/api/vimeo?t=${Date.now()}`,{cache:'no-store',headers:{Accept:'application/json'}});const payload=await response.json().catch(()=>({}));if(!response.ok)throw new Error(payload?.error||`HTTP ${response.status}`);works=(payload.data||[]).map(normalize).filter(item=>item.link&&item.name);if(countEl)countEl.textContent=String(works.length).padStart(2,'0');statusEl.textContent=works.length?uiText.loaded(works.length):uiText.preparing;render('All');}catch(error){console.error('Vimeo load failed:',error);if(countEl)countEl.textContent='—';statusEl.textContent=uiText.loadError;statusEl.classList.add('is-error');grid.innerHTML=`<div class="empty-state">${uiText.loadError}</div>`;}}
+filters.forEach(button=>button.addEventListener('click',()=>{filters.forEach(item=>item.classList.remove('active'));button.classList.add('active');render(button.dataset.filter||'All');}));
 loadVimeo();
