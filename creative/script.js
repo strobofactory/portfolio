@@ -37,35 +37,30 @@ function buildLanguageSelector() {
   if (!nav) return;
   nav.querySelectorAll('a[lang], .language-select, .language-buttons').forEach(el => el.remove());
 
-  const options = [
-    ['ja','/','日本語'],
-    ['en','/en.html','English'],
-    ['es','/es.html','Español'],
-    ['zh','/zh.html','中文'],
-    ['ko','/ko.html','한국어']
-  ];
+  const languageLabels = {
+    ja: { ja:'日本語', en:'英語', es:'スペイン語', zh:'中国語', ko:'韓国語' },
+    en: { ja:'Japanese', en:'English', es:'Spanish', zh:'Chinese', ko:'Korean' },
+    es: { ja:'Japonés', en:'Inglés', es:'Español', zh:'Chino', ko:'Coreano' },
+    zh: { ja:'日语', en:'英语', es:'西班牙语', zh:'中文', ko:'韩语' },
+    ko: { ja:'일본어', en:'영어', es:'스페인어', zh:'중국어', ko:'한국어' }
+  };
+  const paths = {ja:'/', en:'/en.html', es:'/es.html', zh:'/zh.html', ko:'/ko.html'};
 
-  const group = document.createElement('div');
-  group.className = 'language-buttons';
-  group.setAttribute('role', 'group');
-  group.setAttribute('aria-label', uiText.select);
-  options.forEach(([code, href, label]) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = label;
-    button.className = code === locale ? 'active' : '';
-    button.setAttribute('aria-pressed', code === locale ? 'true' : 'false');
-    button.addEventListener('click', () => {
-      if (code !== locale) window.location.href = href;
-    });
-    group.appendChild(button);
+  const select = document.createElement('select');
+  select.className = 'language-select';
+  select.setAttribute('aria-label', uiText.select);
+  select.innerHTML = Object.entries(paths).map(([code, href]) =>
+    `<option value="${href}"${code === locale ? ' selected' : ''}>${languageLabels[locale][code]}</option>`
+  ).join('');
+  select.addEventListener('change', () => {
+    if (select.value) window.location.href = select.value;
   });
-  nav.appendChild(group);
+  nav.appendChild(select);
 
-  if (!document.getElementById('language-buttons-style')) {
+  if (!document.getElementById('language-select-style')) {
     const style = document.createElement('style');
-    style.id = 'language-buttons-style';
-    style.textContent = `.language-buttons{display:inline-flex;align-items:center;border:1px solid var(--ink);background:#fff;flex:0 0 auto}.language-buttons button{border:0;border-right:1px solid var(--ink);background:#fff;color:var(--ink);font:inherit;font-size:10px;letter-spacing:.04em;padding:8px 10px;cursor:pointer;line-height:1.1}.language-buttons button:last-child{border-right:0}.language-buttons button:hover{background:var(--soft)}.language-buttons button.active{background:var(--ink);color:#fff}.language-buttons button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}@media(max-width:760px){.language-buttons{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.language-buttons button{font-size:9px;padding:7px 8px;white-space:nowrap}}`;
+    style.id = 'language-select-style';
+    style.textContent = `.language-select{appearance:none;-webkit-appearance:none;border:1px solid var(--ink);background:#fff;color:var(--ink);font:inherit;font-size:10px;letter-spacing:.04em;padding:8px 28px 8px 10px;cursor:pointer;border-radius:0;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 12px) 50%,calc(100% - 8px) 50%;background-size:4px 4px,4px 4px;background-repeat:no-repeat}.language-select:focus{outline:2px solid var(--accent);outline-offset:2px}@media(max-width:760px){.language-select{font-size:9px;padding:7px 26px 7px 9px}}`;
     document.head.appendChild(style);
   }
 }
