@@ -123,7 +123,7 @@ img{max-width:100%}
 }
 </style>`;
     html = html.replace('</head>', responsiveCss + '</head>');
-    html = html.replace('</body>', '<script src="/products-i18n.js"></script><script src="/products-i18n-long.js"></script></body>');
+    html = html.replace('</body>', '<script src="/products-i18n.js"></script><script src="/products-i18n-long.js"></script><script src="/products-lang-ui.js"></script></body>');
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
