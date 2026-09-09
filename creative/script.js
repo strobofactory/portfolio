@@ -2,6 +2,7 @@ const grid = document.getElementById('filmGrid');
 const statusEl = document.getElementById('filmStatus');
 const countEl = document.getElementById('filmCount');
 const filters = Array.from(document.querySelectorAll('#filmFilters button'));
+const isEnglish = document.documentElement.lang.toLowerCase().startsWith('en');
 let works = [];
 
 const categoryAliases = [
@@ -13,7 +14,7 @@ const categoryAliases = [
   { label: 'Corporate', keys: ['corporate', 'company', 'vp', 'brand', 'documentary'] }
 ];
 
-const categoryDisplay = {
+const categoryDisplayJa = {
   'Corporate': '企業映像',
   'Commercial': 'CM・広告',
   'AI Video': 'AI映像',
@@ -22,9 +23,25 @@ const categoryDisplay = {
   'Live / Event': 'ライブ・イベント'
 };
 
+const categoryDisplay = isEnglish ? Object.fromEntries(categoryAliases.map(item => [item.label, item.label])) : categoryDisplayJa;
+
+const uiText = isEnglish ? {
+  untitled: 'Untitled',
+  categoryEmpty: 'No works are currently listed in this category.',
+  preparing: 'Portfolio works are being prepared.',
+  loaded: count => `${count} works listed`,
+  loadError: 'Video works are temporarily unavailable.'
+} : {
+  untitled: '無題',
+  categoryEmpty: 'このカテゴリの掲載作品はまだありません。',
+  preparing: '掲載作品を準備しています。',
+  loaded: count => `${count}件の掲載作品`,
+  loadError: '映像作品を一時的に読み込めません。'
+};
+
 function esc(value = '') {
-  return String(value).replace(/[&<>'"]/g, ch => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  return String(value).replace(/[&<>'\"]/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '\"': '&quot;'
   }[ch]));
 }
 
@@ -64,7 +81,7 @@ function normalize(item) {
   const id = String(item.uri || '').split('/').filter(Boolean).pop() || '';
   return {
     id,
-    name: item.name || '無題',
+    name: item.name || uiText.untitled,
     link: item.link || (id ? `https://vimeo.com/${id}` : '#'),
     client: getPrefixedTag(tags, 'client'),
     category: inferCategory(item),
@@ -78,8 +95,8 @@ function render(filter = 'All') {
 
   if (!visible.length) {
     grid.innerHTML = works.length
-      ? '<div class="empty-state">このカテゴリの掲載作品はまだありません。</div>'
-      : '<div class="empty-state">掲載作品を準備しています。</div>';
+      ? `<div class="empty-state">${uiText.categoryEmpty}</div>`
+      : `<div class="empty-state">${uiText.preparing}</div>`;
     return;
   }
 
@@ -111,14 +128,14 @@ async function loadVimeo() {
 
     works = (payload.data || []).map(normalize).filter(item => item.link && item.name);
     if (countEl) countEl.textContent = String(works.length).padStart(2, '0');
-    statusEl.textContent = works.length ? `${works.length}件の掲載作品` : '掲載作品を準備しています';
+    statusEl.textContent = works.length ? uiText.loaded(works.length) : uiText.preparing;
     render('All');
   } catch (error) {
     console.error('Vimeo load failed:', error);
     if (countEl) countEl.textContent = '—';
-    statusEl.textContent = '映像作品を一時的に読み込めません';
+    statusEl.textContent = uiText.loadError;
     statusEl.classList.add('is-error');
-    grid.innerHTML = '<div class="empty-state">映像作品を一時的に読み込めません。</div>';
+    grid.innerHTML = `<div class="empty-state">${uiText.loadError}</div>`;
   }
 }
 
