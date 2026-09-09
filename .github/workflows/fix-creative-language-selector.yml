@@ -25,13 +25,12 @@ jobs:
     @media(max-width:760px){.language-select{font-size:9px;padding:7px 26px 7px 9px}}
 '''
 
-          def update(path, current, options, footer_old, footer_new):
+          def update(path, options, footer_old):
               p = Path(path)
               s = p.read_text()
               marker = '  </style>'
               if '.language-select{' not in s:
                   s = s.replace(marker, css + marker, 1)
-              # remove old simple language link and install selector
               old_links = [
                   '      <a href="/en.html" lang="en" aria-label="Switch to English">EN</a>\n',
                   '      <a href="/" lang="ja" aria-label="日本語版に切り替える">JP</a>\n'
@@ -41,22 +40,18 @@ jobs:
               selector = f'''      <select class="language-select" aria-label="Language" onchange="if(this.value) window.location.href=this.value;">\n{options}\n      </select>\n'''
               nav_end = '    </nav>'
               s = s.replace(nav_end, selector + nav_end, 1)
-              s = s.replace(footer_old, footer_new)
+              s = s.replace(footer_old, '')
               p.write_text(s)
 
           update(
               'creative/index.html',
-              '/',
               '        <option value="/" selected>日本語</option>\n        <option value="/en.html">English</option>',
-              '      <a href="/en.html" lang="en">English</a>\n',
-              ''
+              '      <a href="/en.html" lang="en">English</a>\n'
           )
           update(
               'creative/en.html',
-              '/en.html',
               '        <option value="/">日本語</option>\n        <option value="/en.html" selected>English</option>',
-              '      <a href="/" lang="ja">日本語</a>\n',
-              ''
+              '      <a href="/" lang="ja">日本語</a>\n'
           )
           PY
       - name: Commit
