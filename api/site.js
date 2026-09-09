@@ -51,34 +51,12 @@ module.exports = (req, res) => {
     const pos = html.lastIndexOf(marker);
     if (pos === -1) throw new Error('systems section marker not found');
     html = html.slice(0, pos) + extraCases + html.slice(pos);
+    html = html.replace('</body>', '<script src="/products-i18n.js"></script></body>');
 
-    // Add a compact language switch to the existing navigation.
-    html = html.replace('</nav></header>', '<span class="langSwitch" role="group" aria-label="Language"><button type="button" data-lang="ja" class="active">JA</button><span>/</span><button type="button" data-lang="en">EN</button></span></nav></header>');
-    html = html.replace('</style>', '.langSwitch{display:inline-flex;align-items:center;gap:6px;margin-left:4px}.langSwitch button{border:0;background:transparent;padding:4px 2px;cursor:pointer;font-size:11px;letter-spacing:.08em;color:var(--muted)}.langSwitch button.active,.langSwitch button:hover{color:var(--accent-dark)}.langSwitch span{color:#a1a8ac;font-size:10px}@media(max-width:760px){.topbar{padding:0 18px}.topbar nav{gap:12px}.langSwitch{margin-left:0}}\n</style>');
-
-    // English copy for every Japanese text node currently used on the Products / Systems homepage.
-    const translations = {
-      '企画、設計、実装、公開、運用まで。STROBOFACTORYが実際に開発し、リリースしているソフトウェアプロダクトをまとめています。':'From concept and design to implementation, release, and operation. A portfolio of software products actually developed and released by STROBOFACTORY.',
-      '登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。':'A hiking app that records location and biometric data, integrating heart rate, SpO₂, weather, and maps.',
-      '声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。':'An AI journaling app that analyzes emotions from voice and personal records to support daily reflection.',
-      'Shopify直販、ライセンス発行、署名付き自動アップデートまで含めて構築したmacOSユーティリティ。':'A macOS utility built with direct Shopify sales, license issuance, and signed automatic updates.',
-      '自社販売基盤とライセンス運用を組み合わせたmacOSユーティリティ。':'A macOS utility integrating our own sales infrastructure with license management.',
-      '季節によって一刻の長さが変わる江戸時代の不定時法を、現代の端末上で再構成した時刻アプリ。':'A time app that recreates the Edo-period temporal hour system, in which the length of an hour changes with the seasons.',
-      '子どものお手伝いを記録し、継続を楽しく支援するファミリー向けアプリ。':'A family app that records children’s household tasks and makes continued participation more engaging.',
-      'iOSとChromeの2プラットフォームで展開する、シンプルな数独パズル。':'A simple Sudoku puzzle released across both iOS and Chrome.',
-      'ブラウザ上でPDFへ書き込み、チェック、署名などを行えるChrome拡張。':'A Chrome extension for annotating, checking, and signing PDFs directly in the browser.',
-      'Web制作・デザイン作業を支援するカラーユーティリティ。':'A color utility for web production and design workflows.',
-      '短い呼吸・瞑想セッションをブラウザ上で実行するミニマルなタイマー。':'A minimal browser timer for short breathing and meditation sessions.',
-      'ブラウザ上で手軽に学習できる漢字読みクイズ。':'A lightweight Chrome extension for practicing Japanese kanji readings.',
-      'ヘルスケア会員プラットフォーム・顧客ポータル開発':'Healthcare member platform and customer portal development',
-      '精密栄養と予防医療のパーソナルヘルスケアサービス「HAPIVERI Healthcare.ai」のコーポレートサイトと会員専用ページを設計・開発。サービスの入口となるブランドサイトと、契約後の会員が日々利用する管理画面を一貫したブランド表現で構築しています。':'Designed and developed the corporate website and members-only portal for HAPIVERI Healthcare.ai, a personalized healthcare service focused on precision nutrition and preventive health. The public brand site and the daily member interface were built as one consistent experience.',
-      '会員ページはNext.js / TypeScript / Reactを基盤に、Supabase Auth、Airtable、Shopify、Stripe、Boxを統合。ポイント残高、月次レポート、データ提出状況、お知らせ、契約・決済情報、相談窓口を一つの画面に集約しています。':'The member portal is built on Next.js, TypeScript, and React, integrating Supabase Auth, Airtable, Shopify, Stripe, and Box. Points, monthly reports, data submission status, announcements, subscription and payment information, and support access are consolidated in one interface.',
-      '既存の会員管理やポイント付与など、すでに稼働している業務フローには手を入れず、会員向けの表示層だけを新設。外部サービスに分散していた情報を一つのUXにまとめることで、運用を止めずに顧客体験を改善しました。':'A new member-facing presentation layer was added without changing existing operational workflows such as member management and point allocation. Information previously distributed across external services was unified into one UX without interrupting operations.',
-      'コーポレートサイトはStudioで制作し、スマートフォン／タブレット／デスクトップに最適化。会員ページはVercelとGitHubを連携した継続デプロイ構成とし、招待制認証や契約状態に応じた表示分岐、Shopifyブログ連携など、実運用を前提とした機能を実装しています。':'The corporate site was built in Studio and optimized for smartphone, tablet, and desktop. The member portal uses continuous deployment with Vercel and GitHub, with invitation-only authentication, subscription-aware conditional views, Shopify blog integration, and other production-oriented features.',
-      'Shopifyサイト開発・テーマカスタマイズ・運用基盤構築':'Shopify website development, theme customization, and operational infrastructure',
-      '株式会社ストロボファクトリーの公式サイトをShopifyベースで開発・運用。公式テーマ「Dawn」を土台に、Shopify Liquid、CSS、JavaScriptを用いてブランドサイトとしての独自UI、ブログ・記事ページ、レスポンシブ構成を実装しています。':'Developed and operate the official STROBOFACTORY website on Shopify. Using the Dawn theme as a foundation, we implemented a custom brand UI, blog and article pages, and responsive layouts with Shopify Liquid, CSS, and JavaScript.',
-      'Shopify CLIとGitHubを組み合わせた開発環境を構築し、テーマファイルをGitで管理。変更履歴の追跡、ロールバック、継続的な機能改善を行える運用体制とし、サイト共通CSSとブログ専用CSSも分離しています。':'Built a development environment combining Shopify CLI and GitHub, with theme files managed in Git for change tracking, rollback, and continuous improvement. Shared site CSS and blog-specific CSS are also separated for maintainability.',
-      'Dawn 15.0.0をベースとする独自カスタマイズを保持しながら、Dawn 15.4.1の変更内容をファイル単位で調査し、安全性を確認できたJavaScriptやSVGアイコン等を段階的に取り込みました。Shopify Theme Checkによる検証、Liquid・schema・localeの修正、外部リンクのセキュリティ改善まで含めて、本番公開と継続運用を一貫して担当しています。':'While preserving customizations based on Dawn 15.0.0, we reviewed Dawn 15.4.1 changes file by file and selectively integrated verified JavaScript and SVG improvements. Our work includes Shopify Theme Check validation, Liquid/schema/locale fixes, external-link security improvements, production release, and ongoing operation.',
-      'Shopifyを基盤としたEC・オウンドメディア・ブランドプラットフォーム開発':'Shopify-based commerce, owned-media, and brand platform development',
-      '自社ブランド「HAPIVERI」のShopifyサイトを企画、情報設計、デザイン、テーマ開発、SEO、コンテンツ運用まで一貫して構築。Shopifyを単なるオンラインストアではなく、ヘルスケア商品、デジタルマガジン、音楽、教育、パーソナルヘルスケア、メールマガジンをつなぐブランド全体の入口として設計しています。':'Planned and built the Shopify site for our HAPIVERI brand across information architecture, design, theme development, SEO, and content operations. Shopify is used not simply as an online store, but as the central gateway connecting healthcare products, digital publishing, music, education, personalized healthcare, and newsletters.',
-      '公式テーマ「Dawn」をベースに、Liquid、CSS、JavaScript、JSONテンプレートで独自カスタマイズ。商品販売、NEWS、HAPIVERI MAGAZINE、HAPIVERI SOUNDS、特集ページ、ブランドストーリー、メールマガジン登録、検索、ログ
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
+    res.status(200).send(html);
+  } catch (error) {
+    res.status(500).send('site unavailable');
+  }
+};
