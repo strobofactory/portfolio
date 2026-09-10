@@ -13,14 +13,6 @@
       "dest": "/api/hero"
     },
     {
-      "src": "/assets/strobofactory-site\\.webp",
-      "dest": "/api/case-image?name=strobo"
-    },
-    {
-      "src": "/assets/hapiveri-site\\.webp",
-      "dest": "/api/case-image?name=hapi"
-    },
-    {
       "handle": "filesystem"
     }
   ]
