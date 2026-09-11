@@ -28,7 +28,7 @@ jobs:
 
       - name: Capture current Shopify homepages
         run: |
-          cat > /tmp/capture.mjs <<'EOF'
+          cat > capture-shopify.mjs <<'EOF'
           import { chromium } from 'playwright';
 
           const browser = await chromium.launch({headless: true});
@@ -52,7 +52,8 @@ jobs:
 
           await browser.close();
           EOF
-          node /tmp/capture.mjs
+          node ./capture-shopify.mjs
+          rm capture-shopify.mjs
 
       - name: Point portfolio to permanent local screenshots
         run: |
