@@ -1,0 +1,95 @@
+name: Verify Products Shopify images
+
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-products-shopify-images.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Verify production rendering
+        run: |
+          cat > verify-render.mjs <<'EOF'
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage({ viewport: { width: 1440, height: 1200 }, deviceScaleFactor: 1 });
+          const failed = [];
+          page.on('requestfailed', req => failed.push([req.url(), req.failure()?.errorText || 'failed']));
+          page.on('response', res => {
+            if (res.url().includes('strobofactory-site') || res.url().includes('hapiveri-site')) {
+              console.log('IMAGE_RESPONSE', res.status(), res.url(), res.headers()['content-type'], res.headers()['content-length']);
+            }
+          });
+          await page.goto('https://products.strobofactory.net/', { waitUntil: 'networkidle', timeout: 120000 });
+          await page.waitForTimeout(3000);
+
+          const selectors = [
+            'img[src*="strobofactory-site"]',
+            'img[src*="hapiveri-site"]'
+          ];
+
+          for (const selector of selectors) {
+            const el = page.locator(selector).first();
+            await el.waitFor({ state: 'attached', timeout: 30000 });
+            await el.scrollIntoViewIfNeeded();
+            await page.waitForTimeout(1000);
+            const stats = await el.evaluate(img => {
+              const rect = img.getBoundingClientRect();
+              const canvas = document.createElement('canvas');
+              const w = Math.min(img.naturalWidth || 0, 512);
+              const h = img.naturalWidth ? Math.max(1, Math.round((img.naturalHeight / img.naturalWidth) * w)) : 1;
+              canvas.width = w; canvas.height = h;
+              const ctx = canvas.getContext('2d');
+              let nonWhiteFraction = null;
+              let variance = null;
+              try {
+                ctx.drawImage(img, 0, 0, w, h);
+                const data = ctx.getImageData(0, 0, w, h).data;
+                let nonWhite = 0, n = 0, sum = 0, sumSq = 0;
+                for (let i = 0; i < data.length; i += 4) {
+                  const y = (data[i] + data[i+1] + data[i+2]) / 3;
+                  if (y < 245) nonWhite++;
+                  n++; sum += y; sumSq += y*y;
+                }
+                nonWhiteFraction = nonWhite / n;
+                variance = sumSq / n - (sum / n) ** 2;
+              } catch (e) {
+                console.log('CANVAS_ERROR', selector, String(e));
+              }
+              const cs = getComputedStyle(img);
+              return {
+                src: img.currentSrc || img.src,
+                complete: img.complete,
+                naturalWidth: img.naturalWidth,
+                naturalHeight: img.naturalHeight,
+                rectWidth: rect.width,
+                rectHeight: rect.height,
+                display: cs.display,
+                visibility: cs.visibility,
+                opacity: cs.opacity,
+                nonWhiteFraction,
+                variance
+              };
+            });
+            console.log('IMAGE_STATS', selector, JSON.stringify(stats));
+            if (!stats.complete || stats.naturalWidth < 100 || stats.naturalHeight < 100 || stats.rectWidth < 100 || stats.rectHeight < 100 || (stats.nonWhiteFraction !== null && stats.nonWhiteFraction < 0.01)) {
+              throw new Error(`Image render validation failed for ${selector}: ${JSON.stringify(stats)}`);
+            }
+          }
+          console.log('REQUEST_FAILED', JSON.stringify(failed));
+          await page.screenshot({ path: 'products-production.png', fullPage: true });
+          await browser.close();
+          EOF
+          node verify-render.mjs
