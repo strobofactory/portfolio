@@ -1,1 +1,1 @@
-Trigger production redeploy after Vercel plan upgrade. 2026-09-07 16:36 JST
+Trigger production redeploy with refreshed Shopify screenshots. 2026-09-11 09:23 JST
