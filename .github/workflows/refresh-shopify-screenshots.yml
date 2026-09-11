@@ -1,0 +1,81 @@
+name: Refresh Shopify portfolio screenshots
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refresh-shopify-screenshots.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture current Shopify homepages
+        run: |
+          cat > /tmp/capture.mjs <<'EOF'
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({headless: true});
+          const targets = [
+            ['https://strobofactory.net/', 'assets/strobofactory-site.png'],
+            ['https://hapiveri.com/', 'assets/hapiveri-site.png'],
+          ];
+
+          for (const [url, output] of targets) {
+            const page = await browser.newPage({
+              viewport: { width: 2048, height: 982 },
+              deviceScaleFactor: 1,
+            });
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 120000 });
+            await page.waitForTimeout(10000);
+            await page.evaluate(() => window.scrollTo(0, 0));
+            await page.waitForTimeout(1000);
+            await page.screenshot({ path: output, type: 'png', fullPage: false });
+            await page.close();
+          }
+
+          await browser.close();
+          EOF
+          node /tmp/capture.mjs
+
+      - name: Point portfolio to permanent local screenshots
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          s = s.replace('/assets/strobofactory-site.webp?v=20260907-1419', '/assets/strobofactory-site.png?v=20260911')
+          s = s.replace('/assets/hapiveri-site.webp?v=20260907-1419', '/assets/hapiveri-site.png?v=20260911')
+          p.write_text(s)
+          PY
+
+      - name: Validate screenshots
+        run: |
+          test -s assets/strobofactory-site.png
+          test -s assets/hapiveri-site.png
+          file assets/strobofactory-site.png assets/hapiveri-site.png
+
+      - name: Commit refreshed screenshots
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/strobofactory-site.png assets/hapiveri-site.png
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refresh Shopify case study screenshots'
+          git push
