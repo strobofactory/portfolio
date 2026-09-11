@@ -9,10 +9,6 @@
       "dest": "/api/site"
     },
     {
-      "src": "/assets/hero-tech-duo\\.webp",
-      "dest": "/api/hero"
-    },
-    {
       "handle": "filesystem"
     }
   ]
