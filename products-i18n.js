@@ -6,6 +6,8 @@
   const messages = {
     ja: {},
     en: {
+      'Macの空き容量を増やすSweepline for Macの製品LP。機能、安心設計、FAQ、購入導線までを1ページで設計・実装。':'A product landing page for Sweepline for Mac, designed and implemented as a single-page flow covering features, safety, FAQ, and purchase conversion.',
+      'MacからWindowsへ送るZIPの互換性課題を解決するPKPassport for Macの製品LP。課題提示、機能、価格、購入導線までを設計・実装。':'A product landing page for PKPassport for Mac, designed around the Mac-to-Windows ZIP compatibility problem, from problem framing and features to pricing and purchase conversion.',
       '企画、設計、実装、公開、運用まで。STROBOFACTORYが実際に開発し、リリースしているソフトウェアプロダクトをまとめています。':'From concept and design to implementation, release, and operation. A portfolio of software products actually developed and released by STROBOFACTORY.',
       '登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。':'A hiking app that records location and biometric data, integrating heart rate, SpO₂, weather, and maps.',
       '声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。':'An AI journaling app that analyzes emotions from voice and personal records to support daily reflection.',
@@ -26,6 +28,8 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Accounting operations platform integrating AI, accounting APIs, and business tools'
     },
     es: {
+      'Macの空き容量を増やすSweepline for Macの製品LP。機能、安心設計、FAQ、購入導線までを1ページで設計・実装。':'Landing page de producto para Sweepline for Mac, diseñada e implementada en una sola página con funciones, seguridad, FAQ y recorrido de compra.',
+      'MacからWindowsへ送るZIPの互換性課題を解決するPKPassport for Macの製品LP。課題提示、機能、価格、購入導線までを設計・実装。':'Landing page de producto para PKPassport for Mac, diseñada en torno al problema de compatibilidad ZIP entre Mac y Windows, desde el planteamiento y las funciones hasta el precio y la compra.',
       '企画、設計、実装、公開、運用まで。STROBOFACTORYが実際に開発し、リリースしているソフトウェアプロダクトをまとめています。':'Desde la idea y el diseño hasta la implementación, el lanzamiento y la operación. Una selección de productos de software desarrollados y publicados por STROBOFACTORY.',
       '登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。':'Aplicación de senderismo que registra ubicación y datos biométricos e integra frecuencia cardíaca, SpO₂, meteorología y mapas.',
       '声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。':'Aplicación de diario que utiliza IA para analizar emociones a partir de la voz y los registros personales y apoyar la reflexión diaria.',
@@ -46,6 +50,8 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Plataforma de operaciones contables que integra IA, APIs contables y herramientas empresariales'
     },
     zh: {
+      'Macの空き容量を増やすSweepline for Macの製品LP。機能、安心設計、FAQ、購入導線までを1ページで設計・実装。':'Sweepline for Mac 的产品落地页，在单页中完成产品功能、安全设计、FAQ 与购买路径的设计与实现。',
+      'MacからWindowsへ送るZIPの互換性課題を解決するPKPassport for Macの製品LP。課題提示、機能、価格、購入導線までを設計・実装。':'PKPassport for Mac 的产品落地页，围绕 Mac 向 Windows 发送 ZIP 时的兼容性问题，完成问题说明、功能、价格与购买路径的设计与实现。',
       '企画、設計、実装、公開、運用まで。STROBOFACTORYが実際に開発し、リリースしているソフトウェアプロダクトをまとめています。':'从企划、设计、开发到发布与运营。这里汇集了由 STROBOFACTORY 实际开发并发布的软件产品。',
       '登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。':'一款登山应用，可记录位置与生理数据，并整合心率、SpO₂、天气和地图。',
       '声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。':'一款 AI 日记应用，可根据语音和记录分析情绪，帮助用户进行日常回顾。',
@@ -66,6 +72,8 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'整合 AI、会计 API 与业务工具的财务运营平台'
     },
     ko: {
+      'Macの空き容量を増やすSweepline for Macの製品LP。機能、安心設計、FAQ、購入導線までを1ページで設計・実装。':'Sweepline for Mac 제품 랜딩 페이지로, 기능·안심 설계·FAQ·구매 동선을 한 페이지에 설계하고 구현했습니다.',
+      'MacからWindowsへ送るZIPの互換性課題を解決するPKPassport for Macの製品LP。課題提示、機能、価格、購入導線までを設計・実装。':'Mac에서 Windows로 ZIP을 보낼 때의 호환성 문제를 중심으로 문제 제시, 기능, 가격, 구매 동선을 설계하고 구현한 PKPassport for Mac 제품 랜딩 페이지입니다.',
       '企画、設計、実装、公開、運用まで。STROBOFACTORYが実際に開発し、リリースしているソフトウェアプロダクトをまとめています。':'기획과 설계부터 구현, 출시, 운영까지. STROBOFACTORY가 실제로 개발하고 출시한 소프트웨어 제품을 소개합니다.',
       '登山中の位置情報と生体データを記録し、心拍・SpO₂・気象・地図を統合する登山アプリ。':'등산 중 위치와 생체 데이터를 기록하고 심박수, SpO₂, 날씨, 지도를 통합하는 등산 앱입니다.',
       '声や記録をもとにAIが感情を分析し、日々の振り返りを支援するジャーナリングアプリ。':'음성과 기록을 바탕으로 AI가 감정을 분석해 매일의 회고를 돕는 저널링 앱입니다.',
