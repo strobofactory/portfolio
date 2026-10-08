@@ -47,6 +47,36 @@ module.exports = (req, res) => {
     </div>
   </article>`;
 
+
+    const lpSection = `
+<section class="landingPages" id="landing-pages">
+  <div class="landingHead">
+    <div><div class="kicker">LANDING PAGE / PRODUCT SITE</div><h2>Landing pages</h2></div>
+  </div>
+  <div class="landingGrid">
+    <a class="landingCard" href="https://sweepline.strobofactory.net/" target="_blank" rel="noreferrer">
+      <div class="landingShot"><img src="/assets/lp-sweepline.jpg?v=20261008" alt="Sweepline for Mac ランディングページ" loading="lazy" decoding="async"></div>
+      <div class="landingInfo">
+        <p class="category">Landing Page / macOS Utility</p>
+        <h3>Sweepline for Mac</h3>
+        <p class="desc">Macの空き容量を増やすSweepline for Macの製品LP。機能、安心設計、FAQ、購入導線までを1ページで設計・実装。</p>
+        <span class="landingLink">View live site ↗</span>
+      </div>
+    </a>
+    <a class="landingCard" href="https://pkpassport.strobofactory.net/" target="_blank" rel="noreferrer">
+      <div class="landingShot"><img src="/assets/lp-pkpassport.jpg?v=20261008" alt="PKPassport for Mac ランディングページ" loading="lazy" decoding="async"></div>
+      <div class="landingInfo">
+        <p class="category">Landing Page / macOS Utility</p>
+        <h3>PKPassport for Mac</h3>
+        <p class="desc">MacからWindowsへ送るZIPの互換性課題を解決するPKPassport for Macの製品LP。課題提示、機能、価格、購入導線までを設計・実装。</p>
+        <span class="landingLink">View live site ↗</span>
+      </div>
+    </a>
+  </div>
+</section>`;
+
+    html = html.replace('<section class="systems" id="systems">', lpSection + '\n<section class="systems" id="systems">');
+
     const marker = '</section>\n</main>';
     const pos = html.lastIndexOf(marker);
     if (pos === -1) throw new Error('systems section marker not found');
@@ -56,6 +86,17 @@ module.exports = (req, res) => {
 <style id="products-responsive-v2">
 html,body{max-width:100%;overflow-x:hidden}
 img{max-width:100%}
+.landingPages{max-width:1440px;margin:0 auto;padding:0 42px 110px}
+.landingHead{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:36px}
+.landingGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.landingCard{display:block;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:22px 0 28px;transition:background .2s ease}
+.landingCard:hover{background:var(--soft)}
+.landingShot{aspect-ratio:16/10;overflow:hidden;border:1px solid var(--line);background:#f5f7f8}
+.landingShot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.landingInfo{padding:22px 2px 0}
+.landingInfo h3{font-size:30px;line-height:1.08;letter-spacing:-.04em;margin:0 0 12px}
+.landingInfo .desc{max-width:none}
+.landingLink{display:inline-block;margin-top:18px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:4px}
 @media(max-width:900px){
   .topbar{height:auto;min-height:72px;padding:16px 24px;gap:18px;align-items:flex-start;flex-wrap:wrap}
   .topbar nav{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -67,7 +108,8 @@ img{max-width:100%}
   .hero h1{font-size:clamp(72px,14vw,118px);line-height:.82}
   .heroVisual{position:relative;right:auto;bottom:auto;width:112%;height:auto;margin:22px -6% 0;justify-content:center}
   .heroVisual img{width:100%;transform:none}
-  .products,.systems{padding-left:24px;padding-right:24px}
+  .products,.systems,.landingPages{padding-left:24px;padding-right:24px}
+  .landingGrid{gap:20px}
   .grid{grid-template-columns:1fr}
   .card,.card:nth-child(odd),.card:nth-child(even){padding:32px 0;border-right:0}
   .caseStudy{grid-template-columns:1fr;gap:30px}
@@ -87,6 +129,10 @@ img{max-width:100%}
   .heroStat:last-child{grid-column:1/-1}
   .heroVisual{width:124%;margin:12px -12% 0}
   .products{padding:54px 18px 70px}
+  .landingPages{padding:0 18px 70px}
+  .landingGrid{grid-template-columns:1fr;gap:24px}
+  .landingHead{margin-bottom:24px}
+  .landingInfo h3{font-size:26px}
   .systems{padding:0 18px 70px}
   .sectionHead,.systemsHead{margin-bottom:28px}
   h2{font-size:clamp(38px,13vw,58px);overflow-wrap:anywhere}
