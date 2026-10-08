@@ -27,7 +27,7 @@ jobs:
 
       - name: Capture landing pages
         run: |
-          cat > /tmp/capture-lp.mjs <<'EOF'
+          cat > capture-lp.mjs <<'EOF'
           import { chromium } from 'playwright';
 
           const browser = await chromium.launch({headless: true});
@@ -51,7 +51,8 @@ jobs:
 
           await browser.close();
           EOF
-          node /tmp/capture-lp.mjs
+          node ./capture-lp.mjs
+          rm capture-lp.mjs
 
       - name: Validate screenshots
         run: |
