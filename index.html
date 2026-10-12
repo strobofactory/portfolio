@@ -55,6 +55,26 @@ footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--in
     <div><div class="kicker">CLIENT SYSTEMS / PLATFORMS</div><h2>Client systems &amp; platforms</h2></div>
   </div>
   <article class="caseStudy">
+    <div class="caseVisual"><img src="/assets/the-coffee-house-site.jpg?v=20261013" alt="THE COFFEE HOUSE トップページ" loading="lazy" decoding="async" style="aspect-ratio:16/10;object-fit:cover;object-position:top center"></div>
+    <div class="caseIntro">
+      <p class="category">Next.js / Specialty Coffee Archive</p>
+      <h3>THE COFFEE HOUSE</h3>
+      <p class="desc">行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。</p>
+      <a class="caseLink" href="https://thecoffeehouselist.com/" target="_blank" rel="noreferrer">thecoffeehouselist.com ↗</a>
+    </div>
+    <div class="caseBody">
+      <p>日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。</p>
+      <p>店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。</p>
+      <p class="caseWide">見た目は完全なモノクロとシネスコ比（2.39:1）の写真に統一しました。アップロードした写真は自動でトリミング・縮小し、SVG フィルタでトーンを揃えています。日本語・英語・スペイン語・中国語・韓国語の5言語に対応していますが、店の本文は機械翻訳せず原文のまま出しています。住所からの座標は、Google の店舗データを使わず、国土地理院と OpenStreetMap で取得しています。管理画面では、店の追加・候補からの除外・公開の切り替え・座標の取得・CSV の一括取り込み・コラムの執筆までをブラウザで行えます。</p>
+      <div class="caseMeta">
+        <div><strong>5 languages</strong><span>ja / en / es / zh / ko</span></div>
+        <div><strong>48 shops / 34 areas</strong><span>2026年10月時点</span></div>
+        <div><strong>3 states</strong><span>未訪問・訪問済み・確認済み</span></div>
+      </div>
+      <div class="caseStack"><span>Next.js 15</span><span>App Router</span><span>Supabase</span><span>PostgreSQL</span><span>RLS</span><span>Auth</span><span>Storage</span><span>Vercel</span><span>国土地理院 住所検索API</span><span>OpenStreetMap Nominatim</span><span>Google Analytics 4</span><span>Mailchimp</span><span>RSS 2.0</span></div>
+    </div>
+  </article>
+  <article class="caseStudy">
     <div class="caseVisual" style="background:#12263c"><img src="/assets/hapiveri-healthcare-member.webp" alt="HAPIVERI Healthcare.ai 会員ページ" loading="eager" decoding="async" style="aspect-ratio:auto;max-width:900px;margin:0 auto;object-fit:contain;background:#12263c"></div>
     <div class="caseIntro">
       <p class="category">Next.js / Healthcare Member Platform</p>
