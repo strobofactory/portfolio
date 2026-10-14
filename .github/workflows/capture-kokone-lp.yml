@@ -61,4 +61,5 @@ jobs:
           git add assets/lp-kokone.jpg
           git diff --cached --quiet && exit 0
           git commit -m 'Add Kokone LP portfolio screenshot'
+          git pull --rebase origin main
           git push
