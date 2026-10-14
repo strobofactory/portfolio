@@ -97,6 +97,16 @@ img{max-width:100%}
 .landingInfo h3{font-size:30px;line-height:1.08;letter-spacing:-.04em;margin:0 0 12px}
 .landingInfo .desc{max-width:none}
 .landingLink{display:inline-block;margin-top:18px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:4px}
+.websitePages .landingGrid{align-items:start}
+.websiteCard{cursor:default}
+.websiteCardLink{display:block}
+.websiteDetails{margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.websiteDetails p{font-size:13px;line-height:1.85;color:#475158;margin:0 0 16px}
+.websiteDetails p:last-child{margin-bottom:0}
+.websiteMeta{margin-top:24px}
+.websiteMeta strong{font-size:13px}
+.websiteMeta span{font-size:8px;line-height:1.45}
+.websiteStack{margin-top:0;padding-top:18px}
 @media(max-width:900px){
   .topbar{height:auto;min-height:72px;padding:16px 24px;gap:18px;align-items:flex-start;flex-wrap:wrap}
   .topbar nav{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -133,6 +143,10 @@ img{max-width:100%}
   .landingGrid{grid-template-columns:1fr;gap:24px}
   .landingHead{margin-bottom:24px}
   .landingInfo h3{font-size:26px}
+  .websiteDetails{margin-top:22px;padding-top:20px}
+  .websiteDetails p{font-size:12.5px;line-height:1.75}
+  .websiteMeta{grid-template-columns:1fr;gap:12px}
+  .websiteMeta>div:last-child{grid-column:auto}
   .systems{padding:0 18px 70px}
   .sectionHead,.systemsHead{margin-bottom:28px}
   h2{font-size:clamp(38px,13vw,58px);overflow-wrap:anywhere}
