@@ -55,45 +55,102 @@ footer{max-width:1440px;margin:0 auto;padding:42px;border-top:1px solid var(--in
     <div><div class="kicker">WEBSITE / DIGITAL PLATFORM</div><h2>Websites</h2></div>
   </div>
   <div class="landingGrid">
-    <a class="landingCard" href="https://thecoffeehouselist.com/" target="_blank" rel="noreferrer">
-      <div class="landingShot"><img src="/assets/the-coffee-house-site.jpg?v=20261013" alt="THE COFFEE HOUSE トップページ" loading="lazy" decoding="async"></div>
+
+    <article class="landingCard websiteCard">
+      <a class="websiteCardLink" href="https://thecoffeehouselist.com/" target="_blank" rel="noreferrer">
+        <div class="landingShot"><img src="/assets/the-coffee-house-site.jpg?v=20261013" alt="THE COFFEE HOUSE トップページ" loading="lazy" decoding="async"></div>
+      </a>
       <div class="landingInfo">
         <p class="category">Next.js / Specialty Coffee Archive</p>
         <h3>THE COFFEE HOUSE</h3>
         <p class="desc">行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。</p>
-        <span class="landingLink">thecoffeehouselist.com ↗</span>
+        <a class="landingLink" href="https://thecoffeehouselist.com/" target="_blank" rel="noreferrer">thecoffeehouselist.com ↗</a>
+        <div class="websiteDetails">
+          <p>日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。</p>
+          <p>店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。</p>
+          <p>見た目は完全なモノクロとシネスコ比（2.39:1）の写真に統一しました。アップロードした写真は自動でトリミング・縮小し、SVG フィルタでトーンを揃えています。日本語・英語・スペイン語・中国語・韓国語の5言語に対応していますが、店の本文は機械翻訳せず原文のまま出しています。住所からの座標は、Google の店舗データを使わず、国土地理院と OpenStreetMap で取得しています。管理画面では、店の追加・候補からの除外・公開の切り替え・座標の取得・CSV の一括取り込み・コラムの執筆までをブラウザで行えます。</p>
+        </div>
+        <div class="caseMeta websiteMeta">
+          <div><strong>5 languages</strong><span>ja / en / es / zh / ko</span></div>
+          <div><strong>48 shops / 34 areas</strong><span>2026年10月時点</span></div>
+          <div><strong>3 states</strong><span>未訪問・訪問済み・確認済み</span></div>
+        </div>
+        <div class="caseStack websiteStack"><span>Next.js 15</span><span>App Router</span><span>Supabase</span><span>PostgreSQL</span><span>RLS</span><span>Auth</span><span>Storage</span><span>Vercel</span><span>国土地理院 住所検索API</span><span>OpenStreetMap Nominatim</span><span>Google Analytics 4</span><span>Mailchimp</span><span>RSS 2.0</span></div>
       </div>
-    </a>
+    </article>
 
-    <a class="landingCard" href="https://hapiveri-healthcare.ai/" target="_blank" rel="noreferrer">
-      <div class="landingShot" style="background:#12263c"><img src="/assets/hapiveri-healthcare-member.webp" alt="HAPIVERI Healthcare.ai 会員ページ" loading="lazy" decoding="async" style="object-fit:contain;background:#12263c"></div>
+    <article class="landingCard websiteCard">
+      <a class="websiteCardLink" href="https://hapiveri-healthcare.ai/" target="_blank" rel="noreferrer">
+        <div class="landingShot" style="background:#12263c"><img src="/assets/hapiveri-healthcare-member.webp" alt="HAPIVERI Healthcare.ai 会員ページ" loading="lazy" decoding="async" style="object-fit:contain;background:#12263c"></div>
+      </a>
       <div class="landingInfo">
         <p class="category">Next.js / Healthcare Member Platform</p>
         <h3>HAPIVERI Healthcare.ai</h3>
         <p class="desc">ヘルスケア会員プラットフォーム・顧客ポータル開発</p>
-        <span class="landingLink">View corporate site ↗</span>
+        <a class="landingLink" href="https://hapiveri-healthcare.ai/" target="_blank" rel="noreferrer">View corporate site ↗</a>
+        <div class="websiteDetails">
+          <p>精密栄養と予防医療のパーソナルヘルスケアサービス「HAPIVERI Healthcare.ai」のコーポレートサイトと会員専用ページを設計・開発。サービスの入口となるブランドサイトと、契約後の会員が日々利用する管理画面を一貫したブランド表現で構築しています。</p>
+          <p>会員ページはNext.js / TypeScript / Reactを基盤に、Supabase Auth、Airtable、Shopify、Stripe、Boxを統合。ポイント残高、月次レポート、データ提出状況、お知らせ、契約・決済情報、相談窓口を一つの画面に集約しています。</p>
+          <p>既存の会員管理やポイント付与など、すでに稼働している業務フローには手を入れず、会員向けの表示層だけを新設。外部サービスに分散していた情報を一つのUXにまとめることで、運用を止めずに顧客体験を改善しました。</p>
+          <p>コーポレートサイトはStudioで制作し、スマートフォン／タブレット／デスクトップに最適化。会員ページはVercelとGitHubを連携した継続デプロイ構成とし、招待制認証や契約状態に応じた表示分岐、Shopifyブログ連携など、実運用を前提とした機能を実装しています。</p>
+        </div>
+        <div class="caseMeta websiteMeta">
+          <div><strong>Next.js</strong><span>Member platform</span></div>
+          <div><strong>Supabase + Airtable</strong><span>Auth / Member data</span></div>
+          <div><strong>Integrated</strong><span>Shopify / Stripe / Box</span></div>
+        </div>
+        <div class="caseStack websiteStack"><span>Next.js</span><span>TypeScript</span><span>React</span><span>Vercel</span><span>Supabase Auth</span><span>Airtable</span><span>Shopify Storefront API</span><span>Shopify Admin API</span><span>Stripe</span><span>Box</span><span>Studio</span></div>
       </div>
-    </a>
+    </article>
 
-    <a class="landingCard" href="https://strobofactory.net/" target="_blank" rel="noreferrer">
-      <div class="landingShot"><img src="/assets/strobofactory-site.png?v=20260911" alt="STROBOFACTORY公式サイトのトップページ" loading="lazy" decoding="async"></div>
+    <article class="landingCard websiteCard">
+      <a class="websiteCardLink" href="https://strobofactory.net/" target="_blank" rel="noreferrer">
+        <div class="landingShot"><img src="/assets/strobofactory-site.png?v=20260911" alt="STROBOFACTORY公式サイトのトップページ" loading="lazy" decoding="async"></div>
+      </a>
       <div class="landingInfo">
         <p class="category">Shopify / Corporate Website</p>
         <h3>STROBOFACTORY Official Site</h3>
         <p class="desc">Shopifyサイト開発・テーマカスタマイズ・運用基盤構築</p>
-        <span class="landingLink">View live site ↗</span>
+        <a class="landingLink" href="https://strobofactory.net/" target="_blank" rel="noreferrer">View live site ↗</a>
+        <div class="websiteDetails">
+          <p>株式会社ストロボファクトリーの公式サイトをShopifyベースで開発・運用。公式テーマ「Dawn」を土台に、Shopify Liquid、CSS、JavaScriptを用いてブランドサイトとしての独自UI、ブログ・記事ページ、レスポンシブ構成を実装しています。</p>
+          <p>Shopify CLIとGitHubを組み合わせた開発環境を構築し、テーマファイルをGitで管理。変更履歴の追跡、ロールバック、継続的な機能改善を行える運用体制とし、サイト共通CSSとブログ専用CSSも分離しています。</p>
+          <p>Dawn 15.0.0をベースとする独自カスタマイズを保持しながら、Dawn 15.4.1の変更内容をファイル単位で調査し、安全性を確認できたJavaScriptやSVGアイコン等を段階的に取り込みました。Shopify Theme Checkによる検証、Liquid・schema・localeの修正、外部リンクのセキュリティ改善まで含めて、本番公開と継続運用を一貫して担当しています。</p>
+        </div>
+        <div class="caseMeta websiteMeta">
+          <div><strong>Shopify</strong><span>Platform</span></div>
+          <div><strong>Dawn</strong><span>Base theme</span></div>
+          <div><strong>End-to-end</strong><span>Build / QA / Release / Ops</span></div>
+        </div>
+        <div class="caseStack websiteStack"><span>Shopify</span><span>Dawn Theme</span><span>Liquid</span><span>HTML / CSS</span><span>JavaScript</span><span>Shopify CLI</span><span>Theme Check</span><span>Git / GitHub</span></div>
       </div>
-    </a>
+    </article>
 
-    <a class="landingCard" href="https://hapiveri.com/" target="_blank" rel="noreferrer">
-      <div class="landingShot"><img src="/assets/hapiveri-site.png?v=20260911" alt="HAPIVERI公式サイトのトップページ" loading="lazy" decoding="async"></div>
+    <article class="landingCard websiteCard">
+      <a class="websiteCardLink" href="https://hapiveri.com/" target="_blank" rel="noreferrer">
+        <div class="landingShot"><img src="/assets/hapiveri-site.png?v=20260911" alt="HAPIVERI公式サイトのトップページ" loading="lazy" decoding="async"></div>
+      </a>
       <div class="landingInfo">
         <p class="category">Shopify / EC + Owned Media Platform</p>
         <h3>HAPIVERI</h3>
         <p class="desc">Shopifyを基盤としたEC・オウンドメディア・ブランドプラットフォーム開発</p>
-        <span class="landingLink">View live site ↗</span>
+        <a class="landingLink" href="https://hapiveri.com/" target="_blank" rel="noreferrer">View live site ↗</a>
+        <div class="websiteDetails">
+          <p>自社ブランド「HAPIVERI」のShopifyサイトを企画、情報設計、デザイン、テーマ開発、SEO、コンテンツ運用まで一貫して構築。Shopifyを単なるオンラインストアではなく、ヘルスケア商品、デジタルマガジン、音楽、教育、パーソナルヘルスケア、メールマガジンをつなぐブランド全体の入口として設計しています。</p>
+          <p>公式テーマ「Dawn」をベースに、Liquid、CSS、JavaScript、JSONテンプレートで独自カスタマイズ。商品販売、NEWS、HAPIVERI MAGAZINE、HAPIVERI SOUNDS、特集ページ、ブランドストーリー、メールマガジン登録、検索、ログイン、カートを一つのサイト内に統合しています。</p>
+          <p>オウンドメディアでは、タグ、最新記事、関連記事、商品紹介、NEXT ACADEMYやHAPIVERI Healthcare.aiへの導線を記事ページ内に配置し、記事から別の記事・商品・サービスへ回遊できる構造を実装。テーマ別の特集ランディングページ、12問のアーユルヴェーダ体質セルフチェック、音楽配信サービスへの導線もShopify上に組み込みました。</p>
+          <p>SEOでは、タイトル、メタディスクリプション、見出し構造、画像代替テキスト、内部リンク、タグ、カテゴリ、パンくず、記事間リンクを継続改善。Shopify Admin APIを利用した記事の一括処理とURLリダイレクト管理も行い、コンテンツ移行時の検索評価や外部リンクを可能な限り維持できるよう設計しています。</p>
+          <p>開発・運用はGitHubで管理し、ブランチ、Pull Request、差分確認、Shopify Theme Check、プレビューテーマでの検証を経て本番へ反映。本番では変更対象のLiquid、CSS、スニペット、JSONテンプレートのみを限定的にデプロイし、バックアップテーマとロールバック手順を含む継続運用体制を構築しています。</p>
+        </div>
+        <div class="caseMeta websiteMeta">
+          <div><strong>Shopify</strong><span>Platform</span></div>
+          <div><strong>Dawn</strong><span>Base theme</span></div>
+          <div><strong>Integrated</strong><span>EC / Media / Services</span></div>
+        </div>
+        <div class="caseStack websiteStack"><span>Shopify</span><span>Dawn Theme</span><span>Liquid</span><span>HTML / CSS</span><span>JavaScript</span><span>JSON Templates</span><span>Shopify CLI</span><span>Theme Check</span><span>Admin API</span><span>GraphQL</span><span>Git / GitHub</span><span>Mailchimp</span><span>Vimeo</span><span>YouTube</span><span>Kajabi</span></div>
       </div>
-    </a>
+    </article>
+
   </div>
 </section>
 
