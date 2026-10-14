@@ -6,6 +6,7 @@
   const messages = {
     ja: {},
     en: {
+      "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"A product landing page for the voice journal app Kokone, designed and implemented as a single-page experience covering the service concept, features, usage imagery, and the path to the app.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"What did the person who visited actually see at that shop? A record of coffee shops in Japan and around the world.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"A web service documenting independent specialty coffee shops in Japan through firsthand visits by the operator. It follows three rules: no chain stores, no scores or rankings, and the person who went there writes what they actually saw. There is no advertising or paid placement. The entire service—from concept and design to implementation, release, and operation—is run independently as personal media that owns its primary information and does not rely on platform rating systems.",
       "店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。":"Each shop is managed in one of three states: unvisited, visited, or shop-verified. This distinguishes information collected from public sources from information actually checked in person. Records for each cup—origin, farm, variety, processing, roast date, and brewing method—are linked to shops and accumulated. Origin and processing ratios are shown only for shops whose records exceed defined count and time thresholds. The decision not to show trends when the sample is too small is handled entirely in database views rather than in the UI.",
@@ -34,6 +35,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Accounting operations platform integrating AI, accounting APIs, and business tools'
     },
     es: {
+      "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"Landing page de producto para la app de diario de voz Kokone, diseñada e implementada en una sola página con el concepto del servicio, funciones, ejemplos de uso y acceso a la aplicación.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"Qué vio realmente quien visitó ese lugar. Un registro de cafeterías de Japón y del mundo.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"Un servicio web que documenta cafeterías independientes de especialidad en Japón a partir de visitas personales del propio operador. Sigue tres reglas: no incluir cadenas, no asignar puntuaciones ni rankings y escribir qué vio realmente quien estuvo allí. No hay publicidad ni publicaciones de pago. La planificación, el diseño, la implementación, la publicación y la operación se realizan de forma independiente como un medio personal que conserva su propia información primaria y no depende de los sistemas de valoración de las plataformas.",
       "店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。":"Cada cafetería se gestiona en uno de tres estados: no visitada, visitada o verificada en el local. Así se distingue la información recopilada de fuentes públicas de lo comprobado personalmente. Los registros de cada taza —origen, finca, variedad, proceso, fecha de tueste y método de preparación— se vinculan con cada tienda. Las proporciones de origen y proceso solo se muestran cuando existen suficientes registros durante un periodo determinado. La decisión de no mostrar tendencias con una muestra insuficiente se resuelve íntegramente mediante vistas de base de datos, no en la interfaz.",
@@ -62,6 +64,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Plataforma de operaciones contables que integra IA, APIs contables y herramientas empresariales'
     },
     zh: {
+      "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"语音日记应用「ここね / Kokone」的产品落地页，在单页中完成服务概念、功能、使用场景与应用导流的设计与实现。",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"去过的人，在那家店里实际看到了什么。记录日本与世界咖啡店的个人档案。",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"这是一个由运营者亲自到访并记录日本独立精品咖啡店的 Web 服务。收录遵循三条规则：不收录连锁店、不打分也不排名、由真正去过的人写下在店里看到了什么。不接受广告或付费收录，从企划、设计、实现、发布到运营均由一人完成，作为拥有一手信息、不依赖平台评价体系的个人媒体运行。",
       "店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。":"每家店的信息以“未访问、已访问、店铺确认”三种状态管理，用来区分从公开信息收集的内容与亲自确认过的内容。每一杯咖啡的记录——产地、农园、品种、处理法、烘焙日期、冲煮方式——都会与店铺关联并积累。只有当记录数量与时间跨度达到一定条件时，才显示产地与处理法的比例。在样本不足时不展示趋势的判断，不在界面层处理，而是在数据库视图中完成。",
@@ -90,6 +93,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'整合 AI、会计 API 与业务工具的财务运营平台'
     },
     ko: {
+      "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"음성 일기 앱 ‘ここね / Kokone’의 제품 랜딩 페이지로, 서비스 콘셉트와 기능, 사용 이미지, 앱으로 이어지는 동선을 한 페이지에 설계하고 구현했습니다.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"직접 간 사람은 그 가게에서 무엇을 보았는가. 일본과 세계의 커피숍을 기록하는 아카이브.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"운영자가 직접 방문해 일본의 독립 스페셜티 커피숍을 기록하는 웹 서비스입니다. 세 가지 원칙을 둡니다. 체인점은 싣지 않고, 점수나 순위를 매기지 않으며, 실제로 방문한 사람이 그곳에서 무엇을 보았는지 기록합니다. 광고와 유료 게재는 하지 않습니다. 1차 정보를 직접 보유하고 플랫폼의 평가 기준에 의존하지 않는 개인 미디어로서 기획, 설계, 구현, 공개, 운영까지 혼자 진행하고 있습니다.",
       "店ごとの情報は「未訪問・訪問済み・店舗確認済み」の三つの状態で管理しています。公開情報から集めた内容と、実際に確かめた内容を画面の上で区別するためです。一杯ごとの記録（産地・農園・品種・精製・焙煎日・淹れ方）を店に紐づけて蓄積し、記録が一定の件数と日数を超えた店にだけ、産地と精製の割合を表示します。母数が足りない段階で傾向を見せない判断は、画面ではなくデータベースのビューで完結させています。":"매장 정보는 미방문, 방문 완료, 매장 확인 완료의 세 상태로 관리합니다. 공개 정보에서 수집한 내용과 실제로 확인한 내용을 화면에서 구분하기 위해서입니다. 한 잔 단위의 기록—산지, 농장, 품종, 가공 방식, 로스팅 날짜, 추출 방식—을 매장에 연결해 축적하고, 일정한 기록 수와 기간을 넘긴 매장에만 산지와 가공 방식의 비율을 표시합니다. 표본이 부족할 때 추세를 보여주지 않는 판단은 화면이 아니라 데이터베이스 뷰에서 처리합니다.",
