@@ -54,6 +54,15 @@ module.exports = (req, res) => {
     <div><div class="kicker">LANDING PAGE / PRODUCT SITE</div><h2>Landing pages</h2></div>
   </div>
   <div class="landingGrid">
+    <a class="landingCard" href="https://kokone.hapiveri.com/" target="_blank" rel="noreferrer">
+      <div class="landingShot"><img src="/assets/lp-kokone.jpg?v=20261015" alt="ここね / Kokone ランディングページ" loading="lazy" decoding="async"></div>
+      <div class="landingInfo">
+        <p class="category">Landing Page / iOS + AI</p>
+        <h3>ここね / Kokone</h3>
+        <p class="desc">声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。</p>
+        <span class="landingLink">View live site ↗</span>
+      </div>
+    </a>
     <a class="landingCard" href="https://sweepline.strobofactory.net/" target="_blank" rel="noreferrer">
       <div class="landingShot"><img src="/assets/lp-sweepline.jpg?v=20261008" alt="Sweepline for Mac ランディングページ" loading="lazy" decoding="async"></div>
       <div class="landingInfo">
