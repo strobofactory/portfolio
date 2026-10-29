@@ -5,6 +5,14 @@ const filters = Array.from(document.querySelectorAll('#filmFilters button'));
 const lang = (document.documentElement.lang || 'ja').toLowerCase();
 const locale = lang.startsWith('es') ? 'es' : lang.startsWith('zh') ? 'zh' : lang.startsWith('ko') ? 'ko' : lang.startsWith('en') ? 'en' : 'ja';
 let works = [];
+let currentFilter = 'All';
+let currentPage = 1;
+const pageSize = 16;
+
+const pagination = document.createElement('nav');
+pagination.className = 'film-pagination';
+pagination.setAttribute('aria-label', 'Film portfolio pages');
+if (grid) grid.insertAdjacentElement('afterend', pagination);
 
 const categoryAliases = [
   { label: '3DCG', keys: ['3dcg', 'blender', 'cgi', 'computer graphics'] },
@@ -81,7 +89,47 @@ function getPrefixedTag(tags, prefix) { const lower=prefix.toLowerCase(); const 
 function inferCategory(item) { const title=(item.name||'').trim().toLowerCase(); if(title==='inside the engine') return '3DCG'; if(['to the hill','synthetic horizon','glass forest','echo bloom','liquid sky'].some(key=>title.includes(key))) return 'AI Video'; const tags=tagsToStrings(item.tags); const explicit=getPrefixedTag(tags,'category'); if(explicit){ if(explicit.toLowerCase()==='commercial') return 'Corporate'; const exact=categoryAliases.find(entry=>entry.label.toLowerCase()===explicit.toLowerCase()); return exact?exact.label:explicit;} const haystack=`${item.name||''} ${item.description||''} ${tags.join(' ')}`.toLowerCase(); const match=categoryAliases.find(entry=>entry.keys.some(key=>haystack.includes(key))); return match?match.label:'Corporate'; }
 function getThumb(item) { const sizes=item?.pictures?.sizes||[]; if(!sizes.length)return ''; return [...sizes].sort((a,b)=>(b.width||0)-(a.width||0))[0]?.link||sizes[sizes.length-1]?.link||''; }
 function normalize(item) { const tags=tagsToStrings(item.tags); const date=item.release_time||item.created_time||''; const id=String(item.uri||'').split('/').filter(Boolean).pop()||''; return {id,name:item.name||uiText.untitled,link:item.link||(id?`https://vimeo.com/${id}`:'#'),client:getPrefixedTag(tags,'client'),category:inferCategory(item),year:date?new Date(date).getFullYear():'',thumb:getThumb(item)}; }
-function render(filter='All') { const visible=filter==='All'?works:works.filter(work=>work.category===filter); if(!visible.length){grid.innerHTML=works.length?`<div class="empty-state">${uiText.categoryEmpty}</div>`:`<div class="empty-state">${uiText.preparing}</div>`;return;} grid.innerHTML=visible.map(work=>`<a class="film-card" href="${esc(work.link)}" target="_blank" rel="noreferrer"><div class="film-thumb">${work.thumb?`<img src="${esc(work.thumb)}" alt="${esc(work.name)}" loading="lazy">`:''}</div><div class="film-meta"><div><div class="film-category">${esc((categoryDisplay[locale]||categoryDisplay.en)[work.category]||work.category)}</div><h3>${esc(work.name)}</h3>${work.client?`<p class="film-client">${esc(work.client)}</p>`:''}</div><div class="film-year">${esc(work.year)}</div></div></a>`).join(''); }
+function render(filter=currentFilter, page=currentPage) {
+  currentFilter = filter;
+  const visible = filter==='All' ? works : works.filter(work=>work.category===filter);
+  const totalPages = Math.max(1, Math.ceil(visible.length / pageSize));
+  currentPage = Math.min(Math.max(1, page), totalPages);
+
+  if(!visible.length){
+    grid.innerHTML = works.length ? `<div class="empty-state">${uiText.categoryEmpty}</div>` : `<div class="empty-state">${uiText.preparing}</div>`;
+    pagination.innerHTML = '';
+    pagination.hidden = true;
+    return;
+  }
+
+  const start = (currentPage - 1) * pageSize;
+  const pageWorks = visible.slice(start, start + pageSize);
+  grid.innerHTML = pageWorks.map(work=>`<a class="film-card" href="${esc(work.link)}" target="_blank" rel="noreferrer"><div class="film-thumb">${work.thumb?`<img src="${esc(work.thumb)}" alt="${esc(work.name)}" loading="lazy">`:''}</div><div class="film-meta"><div><div class="film-category">${esc((categoryDisplay[locale]||categoryDisplay.en)[work.category]||work.category)}</div><h3>${esc(work.name)}</h3>${work.client?`<p class="film-client">${esc(work.client)}</p>`:''}</div><div class="film-year">${esc(work.year)}</div></div></a>`).join('');
+
+  if(totalPages <= 1){
+    pagination.innerHTML = '';
+    pagination.hidden = true;
+    return;
+  }
+
+  pagination.hidden = false;
+  const prevDisabled = currentPage === 1 ? ' disabled' : '';
+  const nextDisabled = currentPage === totalPages ? ' disabled' : '';
+  const pageButtons = Array.from({length: totalPages}, (_,i) => {
+    const n = i + 1;
+    return `<button type="button" class="film-page-number${n===currentPage?' active':''}" data-page="${n}" aria-label="Page ${n}"${n===currentPage?' aria-current="page"':''}>${n}</button>`;
+  }).join('');
+  pagination.innerHTML = `<button type="button" class="film-page-arrow" data-page="${currentPage-1}" aria-label="Previous page"${prevDisabled}>←</button><div class="film-page-numbers">${pageButtons}</div><span class="film-page-status">${currentPage} / ${totalPages}</span><button type="button" class="film-page-arrow" data-page="${currentPage+1}" aria-label="Next page"${nextDisabled}>→</button>`;
+}
 async function loadVimeo(){try{const response=await fetch(`/api/vimeo?t=${Date.now()}`,{cache:'no-store',headers:{Accept:'application/json'}});const payload=await response.json().catch(()=>({}));if(!response.ok)throw new Error(payload?.error||`HTTP ${response.status}`);works=(payload.data||[]).map(normalize).filter(item=>item.link&&item.name);if(countEl)countEl.textContent=String(works.length).padStart(2,'0');statusEl.textContent=works.length?uiText.loaded(works.length):uiText.preparing;render('All');}catch(error){console.error('Vimeo load failed:',error);if(countEl)countEl.textContent='—';statusEl.textContent=uiText.loadError;statusEl.classList.add('is-error');grid.innerHTML=`<div class="empty-state">${uiText.loadError}</div>`;}}
-filters.forEach(button=>button.addEventListener('click',()=>{filters.forEach(item=>item.classList.remove('active'));button.classList.add('active');render(button.dataset.filter||'All');}));
+filters.forEach(button=>button.addEventListener('click',()=>{filters.forEach(item=>item.classList.remove('active'));button.classList.add('active');currentPage=1;render(button.dataset.filter||'All',1);}));
+pagination.addEventListener('click', event => {
+  const button = event.target.closest('button[data-page]');
+  if(!button || button.disabled) return;
+  const page = Number(button.dataset.page);
+  if(!Number.isFinite(page)) return;
+  render(currentFilter, page);
+  const filmTop = document.getElementById('film');
+  if(filmTop) filmTop.scrollIntoView({behavior:'smooth',block:'start'});
+});
 loadVimeo();
