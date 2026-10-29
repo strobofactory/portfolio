@@ -6,6 +6,10 @@
   const messages = {
     ja: {},
     en: {
+      "精密栄養カウンセラー講座 学習アプリ":"Precision Nutrition Counselor Course Learning App",
+      "動画教材を、スマホで反復しながら「思い出せる知識」に変える学習Webアプリ。":"A learning web app that turns video lessons into knowledge learners can actively recall through short mobile repetition.",
+      "清書済みの講義原稿41本から245問を制作。分野を混ぜるインターリーブ、間隔反復、誤答の再出題、段階的な難易度解放を組み合わせ、短時間でも継続しやすい学習体験にしています。":"Built 245 questions from 41 edited lecture scripts. Interleaving, spaced repetition, retrying mistakes, and progressive difficulty unlocking create a learning flow that works in short sessions.",
+      "問題は原稿本文だけを根拠にし、疑義のある47箇所を出題対象から除外。作問とは別のAIで全問を照合し、4問を修正、1問を削除しました。企画から公開・社内利用開始まで2日間で実装しています。":"Every question is grounded only in the source scripts. Forty-seven questionable passages were excluded, then a separate AI checked all questions; four were corrected and one was removed. The app moved from concept to internal launch in two days.",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"A product landing page for the voice journal app Kokone, designed and implemented as a single-page experience covering the service concept, features, usage imagery, and the path to the app.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"What did the person who visited actually see at that shop? A record of coffee shops in Japan and around the world.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"A web service documenting independent specialty coffee shops in Japan through firsthand visits by the operator. It follows three rules: no chain stores, no scores or rankings, and the person who went there writes what they actually saw. There is no advertising or paid placement. The entire service—from concept and design to implementation, release, and operation—is run independently as personal media that owns its primary information and does not rely on platform rating systems.",
