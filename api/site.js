@@ -54,6 +54,15 @@ module.exports = (req, res) => {
     <div><div class="kicker">LANDING PAGE / PRODUCT SITE</div><h2>Landing pages</h2></div>
   </div>
   <div class="landingGrid">
+    <a class="landingCard" href="https://yamago.hapiveri.com/" target="_blank" rel="noreferrer">
+      <div class="landingShot"><img src="/assets/lp-yamago.jpg?v=20261029" alt="yamago ランディングページ" loading="lazy" decoding="async"></div>
+      <div class="landingInfo">
+        <p class="category">Landing Page / iOS + Apple Watch</p>
+        <h3>yamago</h3>
+        <p class="desc">登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。</p>
+        <span class="landingLink">View live site ↗</span>
+      </div>
+    </a>
     <a class="landingCard" href="https://kokone.hapiveri.com/" target="_blank" rel="noreferrer">
       <div class="landingShot"><img src="/assets/lp-kokone.jpg?v=20261015" alt="ここね / Kokone ランディングページ" loading="lazy" decoding="async"></div>
       <div class="landingInfo">
