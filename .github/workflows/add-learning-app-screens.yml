@@ -1,0 +1,58 @@
+name: Add precision nutrition learning app screenshots
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-learning-app-screens.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download screenshots
+        run: |
+          curl -L --fail --retry 3 'https://pikaso.cdnpk.net/private/production/5875621384/3795003616.jpg?token=exp=1793664000~hmac=49453a3fdb32ee6c8d4c386d11fbc3b72cc333bb7f1b1c2f1d6979fdbb80dc7f' -o /tmp/home.jpg
+          curl -L --fail --retry 3 'https://pikaso.cdnpk.net/private/production/5875621648/3795003766.jpg?token=exp=1793664000~hmac=8cc048489a1f4f1909f54b194bdae54fec8333c83bb43efbfd9267d6c14ca593' -o /tmp/choice.jpg
+          curl -L --fail --retry 3 'https://pikaso.cdnpk.net/private/production/5875621886/3795003910.jpg?token=exp=1793664000~hmac=0f2a13b6122c6228f0d5941ddeb74583ca6e631661748820f353d2b3ba7e6850' -o /tmp/feedback.jpg
+
+      - name: Build portfolio visual
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          paths=['/tmp/home.jpg','/tmp/choice.jpg','/tmp/feedback.jpg']
+          ims=[Image.open(p).convert('RGB') for p in paths]
+          target_h=900
+          resized=[]
+          for im in ims:
+              w=round(im.width*target_h/im.height)
+              resized.append(im.resize((w,target_h), Image.Resampling.LANCZOS))
+          gap=34
+          margin=48
+          W=sum(im.width for im in resized)+gap*(len(resized)-1)+margin*2
+          H=target_h+margin*2
+          canvas=Image.new('RGB',(W,H),(248,249,250))
+          x=margin
+          for im in resized:
+              canvas.paste(im,(x,margin))
+              x += im.width+gap
+          canvas.save('assets/precision-nutrition-learning-app.webp','WEBP',quality=88,method=6)
+          PY
+          test -s assets/precision-nutrition-learning-app.webp
+          file assets/precision-nutrition-learning-app.webp
+
+      - name: Commit asset
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/precision-nutrition-learning-app.webp
+          git diff --cached --quiet && exit 0
+          git commit -m 'Add precision nutrition learning app portfolio visual'
+          git pull --rebase origin main
+          git push
