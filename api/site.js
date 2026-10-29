@@ -11,87 +11,6 @@ module.exports = (req, res) => {
       .replace('Client systems &amp; platforms', 'Client systems &amp; automation');
 
     const extraCases = `
-  <article class="caseStudy learningCase">
-    <div class="caseVisual learningCaseVisual"><img src="/assets/precision-nutrition-learning-app.webp?v=20261029" alt="精密栄養カウンセラー講座 学習アプリのホーム・4択問題・正誤フィードバック画面" loading="lazy" decoding="async"></div>
-    <div class="caseIntro">
-      <p class="category">Learning Web App / Spaced Repetition / AI-assisted</p>
-      <h3>精密栄養カウンセラー講座 学習アプリ</h3>
-      <p class="desc">動画で学ぶ講座内容を、スマホで遊びながら「自分で思い出せる知識」に変えるDuolingo型の学習Webアプリ。</p>
-    </div>
-    <div class="caseBody">
-      <p>清書済みの講義原稿をもとに245問を制作し、分野をまたいだランダム出題と間隔反復で復習できる学習Webアプリです。企画から公開、利用者追加までを2026年10月27〜28日の2日間で行い、初期版は原稿41本・5区分から245問を構成。現在は社内4名が利用しています。</p>
-      <p>背景には、動画教材は「見た」だけでは知識が残りにくく、視聴しながら詳細なノートを取るのも現実的ではないという課題がありました。そこで、約53万字・245本の清書済み原稿を学習データとして再利用し、動画視聴を「思い出す練習」へ変換しました。</p>
-
-      <div class="caseWide caseSection">
-        <h4>学習コンセプト</h4>
-        <p>中心にあるのは「見る」から「思い出す」への転換です。忘れかけたタイミングで自力で答えることを重視し、6つの仕組みを組み合わせています。</p>
-        <ul>
-          <li><strong>混ぜて出す（インターリーブ）</strong> — 講座単位ではなく全区分からランダムに出題し、同じ原稿・区分が続かないように配置。</li>
-          <li><strong>間をあけて繰り返す（間隔反復）</strong> — 正解は1日、2日、4日……と間隔を広げ、誤答は翌日に再出題。間隔を空けても答えられた問題を「定着」と判定。</li>
-          <li><strong>間違えたら最後にやり直す</strong> — 誤答はセット末尾へ戻し、正解するまでセットを完了させない設計。</li>
-          <li><strong>やさしく始める（段階解放）</strong> — 難易度1「基礎」から開始し、20問定着で「標準」、80問で「応用」を解放。</li>
-          <li><strong>続けたくなる仕掛け</strong> — XP、レベル、連続学習日数、コース全体と区分ごとの定着率を静かに可視化。</li>
-          <li><strong>すきま時間で終わる</strong> — 5・10・20問から選択でき、新規問題は1日25問まで。途中保存と続きからの再開に対応。</li>
-        </ul>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>コンテンツ設計と検証</h4>
-        <p>問題は講義原稿の本文だけを根拠にし、医療・健康教材として量より正確さを優先しました。245本の原稿から34カテゴリ・全5区分をまたぐ41本を選び、清書時の修正記録と未決着の確認事項を読み、保留・疑義のある数字、固有名詞、因果関係47箇所は出題対象から除外しています。</p>
-        <p>1原稿あたり6問を基準に、4択129問、正誤56問、穴埋め40問、並べ替え20問を作成。難易度は「1：用語・基本」77問、「2：仕組みの理解」133問、「3：区別・応用」35問に分類しました。</p>
-        <p>作問に使ったAIとは別のAIで全問を原稿と照合し、正解が本文どおりか、誤答に正しい選択肢が紛れていないかなど6項目を検証。4問を修正、1問を削除しました。この過程で原稿本文側にも医学的に疑わしい記述を4本分見つけ、教材の見直し候補として抽出しています。</p>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>体験とデザイン</h4>
-        <p>HAPIVERI Healthcareのブランドトーンに合わせ、白・ネイビー・クリーム、細い罫線、角のないボタン、LatoとNoto Sans JPを中心にしたミニマルなUIを設計。ダークモードはブランドの濃紺を地色にしています。</p>
-        <ul>
-          <li>ホーム・問題・結果の3画面に絞り、「1画面に1つのこと」を徹底。</li>
-          <li>選択肢をタップした瞬間に正誤判定し、正解は緑、不正解は赤系の面でフィードバック。</li>
-          <li>解答後に原稿に沿った解説と出典講義名を表示し、見直す動画へ戻れる構成。</li>
-          <li>正解・不正解・セット完了・レベルアップの効果音をWeb Audio APIで端末内合成。</li>
-          <li>iPhone / iPadのホーム画面追加に対応し、ブラウザ枠のない全画面Webアプリとして利用可能。</li>
-        </ul>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>技術構成</h4>
-        <p>画面はVercelから配信し、データとログインはSupabase（PostgreSQL）に配置。自前サーバーを持たない構成で運用負荷を抑えています。テーブルへの直接アクセスは閉じ、問題と学習記録の読み書きは5つのDB関数だけを経由。名簿登録済みかつメール確認済みの利用者かを確認し、自分自身の記録だけを扱うよう制御しています。</p>
-        <p>フロントエンドはフレームワークを使わず、1枚のHTMLとVanilla JavaScriptで実装。間隔反復、出題順の制御、途中保存をクライアント側で行い、通信が切れても記録を保持し、再接続時に自動保存します。</p>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>公開後の改善</h4>
-        <ul class="feedbackList">
-          <li><strong>デザインが洗練されていない</strong> → HAPIVERIのトーンでミニマルに再設計。</li>
-          <li><strong>間違えた問題をやり直したい</strong> → セット末尾で正解するまで再出題。</li>
-          <li><strong>どこまで進んだか知りたい</strong> → レベル、XP、コース定着率を追加。</li>
-          <li><strong>途中から始めたい</strong> → 解答ごとに保存し、再起動後も続きから再開。</li>
-          <li><strong>スマホ・iPadで使いたい</strong> → ホーム画面追加対応のWebアプリとして公開。</li>
-          <li><strong>正誤がわかりづらい</strong> → 面で示す色フィードバックと効果音を追加。</li>
-          <li><strong>初回が難しい</strong> → 基礎から始める段階解放へ変更。</li>
-        </ul>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>制作体制とAI活用</h4>
-        <p>企画・ディレクションは岩松が担当し、目的と要件、学習方針、デザイン方向、公開・DB変更の承認、実機検証、社内展開を担いました。設計・実装・問題制作は生成AI（Claude）を中心に進めています。</p>
-        <p>問題制作は5つのAIへ並行分担し、作成に関わっていない別のAIが原稿照合を担当。作る側と確かめる側を分離し、AIが自分の仕事を自己採点しない工程にしました。公開やデータベース変更など影響の大きい操作は、人の承認後にのみ実行しています。</p>
-      </div>
-
-      <div class="caseWide caseSection">
-        <h4>成果と今後</h4>
-        <p>2日間で、動画教材を「思い出す練習」へ変える仕組みを企画から社内利用開始まで立ち上げました。初期版は41本の原稿から245問、利用者4名。今後は残り204本の原稿にも同じ手順を適用し、講座全体へ拡張します。応用問題の追加と難易度の細分化、同じ原稿データを使った図解入り読み物教材も計画しています。</p>
-      </div>
-
-      <div class="caseMeta">
-        <div><strong>245 questions</strong><span>41 scripts / 5 sections</span></div>
-        <div><strong>2 days</strong><span>2026.10.27–28</span></div>
-        <div><strong>4 users</strong><span>Internal launch</span></div>
-      </div>
-      <div class="caseStack"><span>Vanilla JavaScript</span><span>HTML</span><span>Supabase</span><span>PostgreSQL</span><span>RLS</span><span>DB Functions</span><span>Vercel</span><span>Web Audio API</span><span>PWA</span><span>Spaced Repetition</span><span>Interleaving</span><span>Claude</span></div>
-    </div>
-  </article>
   <article class="caseStudy">
     <div class="caseIntro">
       <p class="category">Business Automation / Sales Operations</p>
@@ -197,14 +116,8 @@ img{max-width:100%}
 .websiteMeta strong{font-size:13px}
 .websiteMeta span{font-size:8px;line-height:1.45}
 .websiteStack{margin-top:0;padding-top:18px}
-.learningCaseVisual{background:#f5f7f8;display:flex;justify-content:center;align-items:center}
-.learningCaseVisual img{width:50%!important;max-width:720px;aspect-ratio:auto!important;object-fit:contain!important;background:#f5f7f8;margin:0 auto}
-.caseSection{padding-top:10px}
-.caseSection h4{font-size:18px;line-height:1.35;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink)}
-.caseSection ul,.caseSection ol{margin:0;padding-left:20px}
-.caseSection li{font-size:13px;line-height:1.8;color:#475158;margin:0 0 9px}
-.caseSection li:last-child{margin-bottom:0}
-.feedbackList strong{color:var(--ink)}
+.learningThumb{background:#f5f7f8}
+.learningThumb img{object-fit:contain!important;background:#f5f7f8}
 @media(max-width:900px){
   .topbar{height:auto;min-height:72px;padding:16px 24px;gap:18px;align-items:flex-start;flex-wrap:wrap}
   .topbar nav{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -261,7 +174,6 @@ img{max-width:100%}
   .caseStudy{padding:32px 0 38px;gap:22px}
   .caseVisual{margin:0;border-left:0;border-right:0}
   .caseVisual img{width:100%;height:auto;aspect-ratio:auto!important;object-fit:contain!important}
-  .learningCaseVisual img{width:100%!important;max-width:none}
   .caseIntro h3{font-size:30px;overflow-wrap:anywhere}
   .caseBody{gap:18px}
   .caseBody p{font-size:13px;line-height:1.75}
