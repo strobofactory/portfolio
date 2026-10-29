@@ -129,7 +129,5 @@ pagination.addEventListener('click', event => {
   const page = Number(button.dataset.page);
   if(!Number.isFinite(page)) return;
   render(currentFilter, page);
-  const filmTop = document.getElementById('film');
-  if(filmTop) filmTop.scrollIntoView({behavior:'smooth',block:'start'});
 });
 loadVimeo();
