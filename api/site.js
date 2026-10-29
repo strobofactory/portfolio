@@ -197,8 +197,8 @@ img{max-width:100%}
 .websiteMeta strong{font-size:13px}
 .websiteMeta span{font-size:8px;line-height:1.45}
 .websiteStack{margin-top:0;padding-top:18px}
-.learningCaseVisual{background:#f5f7f8}
-.learningCaseVisual img{aspect-ratio:auto!important;object-fit:contain!important;background:#f5f7f8}
+.learningCaseVisual{background:#f5f7f8;display:flex;justify-content:center;align-items:center}
+.learningCaseVisual img{width:50%!important;max-width:720px;aspect-ratio:auto!important;object-fit:contain!important;background:#f5f7f8;margin:0 auto}
 .caseSection{padding-top:10px}
 .caseSection h4{font-size:18px;line-height:1.35;letter-spacing:-.02em;margin:0 0 14px;color:var(--ink)}
 .caseSection ul,.caseSection ol{margin:0;padding-left:20px}
@@ -261,6 +261,7 @@ img{max-width:100%}
   .caseStudy{padding:32px 0 38px;gap:22px}
   .caseVisual{margin:0;border-left:0;border-right:0}
   .caseVisual img{width:100%;height:auto;aspect-ratio:auto!important;object-fit:contain!important}
+  .learningCaseVisual img{width:100%!important;max-width:none}
   .caseIntro h3{font-size:30px;overflow-wrap:anywhere}
   .caseBody{gap:18px}
   .caseBody p{font-size:13px;line-height:1.75}
