@@ -6,6 +6,7 @@
   const messages = {
     ja: {},
     en: {
+      "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"A product landing page for yamago, a hiking GPS and offline map app. Apple Watch integration, hike recording, mapping features, and the path to the app are organized into a single-page experience.",
       "精密栄養カウンセラー講座 学習アプリ":"Precision Nutrition Counselor Course Learning App",
       "動画教材を、スマホで反復しながら「思い出せる知識」に変える学習Webアプリ。":"A learning web app that turns video lessons into knowledge learners can actively recall through short mobile repetition.",
       "清書済みの講義原稿41本から245問を制作。分野を混ぜるインターリーブ、間隔反復、誤答の再出題、段階的な難易度解放を組み合わせ、短時間でも継続しやすい学習体験にしています。":"Built 245 questions from 41 edited lecture scripts. Interleaving, spaced repetition, retrying mistakes, and progressive difficulty unlocking create a learning flow that works in short sessions.",
@@ -39,6 +40,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Accounting operations platform integrating AI, accounting APIs, and business tools'
     },
     es: {
+      "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"Landing page de producto para yamago, una app de GPS de montaña y mapas sin conexión. Integra en una sola página la conexión con Apple Watch, el registro de rutas, las funciones de mapa y el acceso a la app.",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"Landing page de producto para la app de diario de voz Kokone, diseñada e implementada en una sola página con el concepto del servicio, funciones, ejemplos de uso y acceso a la aplicación.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"Qué vio realmente quien visitó ese lugar. Un registro de cafeterías de Japón y del mundo.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"Un servicio web que documenta cafeterías independientes de especialidad en Japón a partir de visitas personales del propio operador. Sigue tres reglas: no incluir cadenas, no asignar puntuaciones ni rankings y escribir qué vio realmente quien estuvo allí. No hay publicidad ni publicaciones de pago. La planificación, el diseño, la implementación, la publicación y la operación se realizan de forma independiente como un medio personal que conserva su propia información primaria y no depende de los sistemas de valoración de las plataformas.",
@@ -68,6 +70,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Plataforma de operaciones contables que integra IA, APIs contables y herramientas empresariales'
     },
     zh: {
+      "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"登山 GPS 与离线地图应用「yamago」的产品落地页，在单页中整合 Apple Watch 联动、登山记录、地图功能与应用导流。",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"语音日记应用「ここね / Kokone」的产品落地页，在单页中完成服务概念、功能、使用场景与应用导流的设计与实现。",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"去过的人，在那家店里实际看到了什么。记录日本与世界咖啡店的个人档案。",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"这是一个由运营者亲自到访并记录日本独立精品咖啡店的 Web 服务。收录遵循三条规则：不收录连锁店、不打分也不排名、由真正去过的人写下在店里看到了什么。不接受广告或付费收录，从企划、设计、实现、发布到运营均由一人完成，作为拥有一手信息、不依赖平台评价体系的个人媒体运行。",
@@ -97,6 +100,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'整合 AI、会计 API 与业务工具的财务运营平台'
     },
     ko: {
+      "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"등산 GPS·오프라인 지도 앱 ‘yamago’의 제품 랜딩 페이지로, Apple Watch 연동, 등산 기록, 지도 기능, 앱으로 이어지는 동선을 한 페이지에 설계하고 구현했습니다.",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"음성 일기 앱 ‘ここね / Kokone’의 제품 랜딩 페이지로, 서비스 콘셉트와 기능, 사용 이미지, 앱으로 이어지는 동선을 한 페이지에 설계하고 구현했습니다.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"직접 간 사람은 그 가게에서 무엇을 보았는가. 일본과 세계의 커피숍을 기록하는 아카이브.",
       "日本の独立系スペシャルティコーヒー店を、運営者が自分で足を運んで記録するWebサービスです。掲載のルールは三つ。チェーン店は載せない、点数も順位もつけない、行った人がその店で何を見たかを書く。広告や有料掲載は行わず、一次情報を自分で持ち、プラットフォームの評価軸に乗らない個人メディアとして企画、設計、実装、公開、運用までを一人で手がけています。":"운영자가 직접 방문해 일본의 독립 스페셜티 커피숍을 기록하는 웹 서비스입니다. 세 가지 원칙을 둡니다. 체인점은 싣지 않고, 점수나 순위를 매기지 않으며, 실제로 방문한 사람이 그곳에서 무엇을 보았는지 기록합니다. 광고와 유료 게재는 하지 않습니다. 1차 정보를 직접 보유하고 플랫폼의 평가 기준에 의존하지 않는 개인 미디어로서 기획, 설계, 구현, 공개, 운영까지 혼자 진행하고 있습니다.",
