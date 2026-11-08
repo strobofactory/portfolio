@@ -6,6 +6,7 @@
   const messages = {
     ja: {},
     en: {
+      "波紋の連鎖をつくる全60ステージのiOSパズル。4種のコア、Harmony、Sound Garden、音響・触覚フィードバックまで設計したネイティブゲーム。":"A 60-stage native iOS puzzle game built around ripple-chain reactions, with four core types, Harmony mechanics, Sound Garden, and carefully designed audio and haptic feedback.",
       "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"A product landing page for yamago, a hiking GPS and offline map app. Apple Watch integration, hike recording, mapping features, and the path to the app are organized into a single-page experience.",
       "精密栄養カウンセラー講座 学習アプリ":"Precision Nutrition Counselor Course Learning App",
       "動画教材を、スマホで反復しながら「思い出せる知識」に変える学習Webアプリ。":"A learning web app that turns video lessons into knowledge learners can actively recall through short mobile repetition.",
@@ -40,6 +41,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Accounting operations platform integrating AI, accounting APIs, and business tools'
     },
     es: {
+      "波紋の連鎖をつくる全60ステージのiOSパズル。4種のコア、Harmony、Sound Garden、音響・触覚フィードバックまで設計したネイティブゲーム。":"Juego de puzles nativo para iOS con 60 niveles basado en reacciones en cadena de ondas, cuatro tipos de núcleo, mecánicas Harmony, Sound Garden y un diseño cuidado de audio y respuesta háptica.",
       "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"Landing page de producto para yamago, una app de GPS de montaña y mapas sin conexión. Integra en una sola página la conexión con Apple Watch, el registro de rutas, las funciones de mapa y el acceso a la app.",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"Landing page de producto para la app de diario de voz Kokone, diseñada e implementada en una sola página con el concepto del servicio, funciones, ejemplos de uso y acceso a la aplicación.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"Qué vio realmente quien visitó ese lugar. Un registro de cafeterías de Japón y del mundo.",
@@ -70,6 +72,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'Plataforma de operaciones contables que integra IA, APIs contables y herramientas empresariales'
     },
     zh: {
+      "波紋の連鎖をつくる全60ステージのiOSパズル。4種のコア、Harmony、Sound Garden、音響・触覚フィードバックまで設計したネイティブゲーム。":"一款包含60个关卡的原生 iOS 连锁波纹益智游戏，设计了4种核心、Harmony机制、Sound Garden，以及完整的音效与触觉反馈。",
       "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"登山 GPS 与离线地图应用「yamago」的产品落地页，在单页中整合 Apple Watch 联动、登山记录、地图功能与应用导流。",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"语音日记应用「ここね / Kokone」的产品落地页，在单页中完成服务概念、功能、使用场景与应用导流的设计与实现。",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"去过的人，在那家店里实际看到了什么。记录日本与世界咖啡店的个人档案。",
@@ -100,6 +103,7 @@
       'AI・会計API・業務ツールを統合した経理オペレーション基盤':'整合 AI、会计 API 与业务工具的财务运营平台'
     },
     ko: {
+      "波紋の連鎖をつくる全60ステージのiOSパズル。4種のコア、Harmony、Sound Garden、音響・触覚フィードバックまで設計したネイティブゲーム。":"파문 연쇄를 중심으로 한 60스테이지 iOS 네이티브 퍼즐 게임으로, 4종 코어, Harmony 시스템, Sound Garden, 사운드와 햅틱 피드백까지 설계했습니다.",
       "登山GPS・オフライン地図アプリ「yamago」の製品LP。Apple Watch連携、登山記録、地図機能、アプリへの導線を1ページで設計・実装。":"등산 GPS·오프라인 지도 앱 ‘yamago’의 제품 랜딩 페이지로, Apple Watch 연동, 등산 기록, 지도 기능, 앱으로 이어지는 동선을 한 페이지에 설계하고 구현했습니다.",
       "声の日記アプリ「ここね / Kokone」の製品LP。サービスのコンセプト、機能、利用イメージ、アプリへの導線を1ページで設計・実装。":"음성 일기 앱 ‘ここね / Kokone’의 제품 랜딩 페이지로, 서비스 콘셉트와 기능, 사용 이미지, 앱으로 이어지는 동선을 한 페이지에 설계하고 구현했습니다.",
       "行った人が、その店の何を見たか。日本と世界のコーヒー店の記録。":"직접 간 사람은 그 가게에서 무엇을 보았는가. 일본과 세계의 커피숍을 기록하는 아카이브.",
